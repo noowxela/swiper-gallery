@@ -7,6 +7,9 @@
     --bg-1: #E3CFCF;
     --bg-2: #E9E9E9;
     --accent: #E36262;
+    --rafflesia: #8B1A2B;
+    --rafflesia-deep: #5C101C;
+    --rafflesia-spot: #F4E2C0;
     --primary-ff: 'EB Garamond', Georgia, serif;
     --secondary-ff: 'Montserrat', Helvetica, sans-serif;
 }
@@ -59,8 +62,11 @@ a:hover {
 }
 
 #main-header img {
-    max-width: 100%;
+    max-width: 280px;
+    width: 100%;
     height: auto;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(21, 21, 21, 0.18);
 }
 
 p.intro {
@@ -76,7 +82,22 @@ p.intro {
 }
 
 #about {
-    background-color: var(--bg-1);
+    background-color: var(--rafflesia);
+    background-image:
+        radial-gradient(circle at 12% 22%, var(--rafflesia-spot) 0 14px, transparent 15px),
+        radial-gradient(circle at 28% 68%, var(--rafflesia-spot) 0 10px, transparent 11px),
+        radial-gradient(circle at 72% 18%, var(--rafflesia-spot) 0 12px, transparent 13px),
+        radial-gradient(circle at 88% 62%, var(--rafflesia-spot) 0 16px, transparent 17px),
+        radial-gradient(circle at 48% 88%, var(--rafflesia-spot) 0 9px, transparent 10px),
+        radial-gradient(circle at 8% 82%, rgba(244, 226, 192, 0.55) 0 8px, transparent 9px),
+        linear-gradient(180deg, var(--rafflesia) 0%, var(--rafflesia-deep) 100%);
+    color: var(--rafflesia-spot);
+}
+
+#about h2,
+#about p,
+#about strong {
+    color: var(--rafflesia-spot);
 }
 
 #slider-2 {
