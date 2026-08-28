@@ -1,0 +1,178 @@
+<html>
+  <head>
+    <title>Swiper Example with Centered and Larger Active Slide </title>
+    <style>/* Variables */
+      :root {
+        --swiper-image-ratio: 33.3%; /* ratio 16:9 = 56.25% */
+
+        --swiper-width: 50%;
+        --swiper-inactive-scale: .85; /* makes the other slide smaller */
+        
+        /* responsive settings */
+        --swiper-mobile-width: 90%;
+        --swiper-mobile-inactive-scale: .95;
+      }
+
+      html, body { height: 100%; }
+
+      .container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .swiper {
+          position: relative;
+          width: 100%;
+          height: calc(var(--swiper-width) * var(--swiper-image-ratio) / 100%);
+          overflow: hidden;
+      }
+
+      .swiper-slide {
+        position: relative;
+        width: var(--swiper-width) !important;
+        opacity: .5 !important;
+        transform: scale(.84) !important;
+        transition: all .3s ease-in-out;
+        overflow: hidden;
+        border-radius: 0.4285rem;
+      }
+
+      .swiper-backface-hidden .swiper-slide {
+        transform: scale(.84) translateZ(0);
+      }
+              
+      .swiper-slide.swiper-slide-active {  
+        transform: scale(1) !important;
+        opacity: 1 !important;
+      }
+
+      .swiper-backface-hidden .swiper-slide.swiper-slide-active {
+        transform: scale(1) translateZ(0) !important;
+      }
+
+      .swiper-image {
+        position: relative;
+        width: 100%;
+        padding-top: var(--swiper-image-ratio);
+      }
+          
+      .swiper-image .image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #929ec9;
+      }
+
+      .swiper-button-next,
+      .swiper-button-prev {
+        padding: 8px !important;
+        width: 12px !important;
+        height: 12px !important;
+        margin-top: 0 !important;
+        background-color: rgba(0, 0, 0, .4) !important;
+        border-radius: 50% !important;
+      }
+
+      .swiper-button-next::after,
+      .swiper-button-prev::after {
+        color: #fff !important;
+        font-size: 12px !important;
+      }
+
+      .swiper-button-next {
+        transform: translate(50%, -50%) !important;
+        right: calc((100% - var(--swiper-width)) / 2) !important;
+      }
+
+      .swiper-button-prev {
+        transform: translate(-50%, -50%) !important;
+        left: calc((100% - var(--swiper-width)) / 2) !important;
+      }
+
+      @media only screen and (max-width: 768px) {
+        .swiper {
+          height: calc(var(--swiper-mobile-width) * var(--swiper-image-ratio) / 100%);
+        }
+
+        .swiper-slide {
+          width: var(--swiper-mobile-width);
+          transform: scale(var(--swiper-mobile-inactive-scale));
+        }
+        
+        .swiper-backface-hidden .swiper-slide.swiper-slide {
+          transform: scale(var(--swiper-mobile-inactive-scale)) translateZ(0);
+        }
+
+        .swiper-button-next {
+          right: calc((100% - var(--swiper-mobile-width)) / 2) !important;
+        }
+
+        .swiper-button-prev {
+          left: calc((100% - var(--swiper-mobile-width)) / 2) !important;
+        }
+      }
+    </style>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.js"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/css/swiper.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/js/swiper.min.js"></script> -->
+  </head>
+  <body>
+    <!-- Swiper -->
+    <div class="container">
+      <div class="swiper">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+          <!-- Slide 1 -->
+          <div class="swiper-slide">  
+            <div class="swiper-image">
+              <div class="image"></div>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="swiper-slide">
+            <div class="swiper-image">
+              <div class="image"></div>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="swiper-slide">
+            <div class="swiper-image">
+              <div class="image"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- If we need navigation buttons -->
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+      </div>
+    </div>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const swiper = new Swiper('.swiper', {
+          loop: true,
+          slidesPerView: 'auto',
+          autoplay: {
+            delay: 5000,
+            disableOnInteraction: true
+          },
+          centeredSlides: true,
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

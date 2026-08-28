@@ -1,0 +1,286 @@
+<html>
+  <head>
+    <title>Vanilla JS </title>
+    <style>/* Variables */
+      body {
+        margin: 0;
+        padding: 50px 0;
+      }
+      .wrapper {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 10vh;
+      }
+      h2 {
+        margin: 0 0 40px;
+        text-align: center;
+      }
+      .test-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 100px;
+        list-style: none;
+      }
+      .test-list li {
+        width: 23%;
+        margin-bottom: 10px;
+      }
+      img {
+        width: 100%;
+        height: auto;
+        vertical-align: top;
+      }
+      .swiper {
+        padding-bottom: 40px;
+        margin-bottom: 100px;
+      }
+      .js-test-title01 {
+        font-weight: bold;
+      }
+    </style>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.js"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/css/swiper.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/js/swiper.min.js"></script> -->
+  </head>
+  <body>
+    <!-- Swiper -->
+
+    <div class="wrapper">
+      <h1>Align the height of each row (Vanilla JS)</h1>
+      <h2>横並び要素の列ごとに高さを揃える</h2>
+      <ul class="test-list">
+        <li>
+          <p class="js-test-text">高さを揃える高さを揃える高さを揃える高さを揃える高さを揃える</p>
+          <img src="./assets/swiper_019/300-a0f165c1.jpg" alt="" width="400" height="300">
+        </li>
+        <li>
+          <p class="js-test-text">高さを揃える</p>
+          <img src="./assets/swiper_019/300-0e3eb13a.jpg" alt="" width="400" height="300">
+        </li>
+        <li>
+          <p class="js-test-text">高さを揃える高さを揃える高さを揃える</p>
+          <img src="./assets/swiper_019/300-4de89a88.jpg" alt="" width="400" height="300">
+        </li>
+        <li>
+          <p class="js-test-text">高さを揃える高さを揃える高さを揃える</p>
+          <img src="./assets/swiper_019/300-eb41250d.jpg" alt="" width="400" height="300">
+        </li>
+        <li>
+          <p class="js-test-text">高さを揃える高さを揃える高さを揃える高さを揃える高さを揃える高さを揃える高さを揃える高さを揃える</p>
+          <img src="./assets/swiper_019/300-d2b75288.jpg" alt="" width="400" height="300">
+        </li>
+        <li>
+          <p class="js-test-text">高さを揃える</p>
+          <img src="./assets/swiper_019/300-5bd71568.jpg" alt="" width="400" height="300">
+        </li>
+        <li>
+          <p class="js-test-text">高さを揃える</p>
+          <img src="./assets/swiper_019/300-4ebe5544.jpg" alt="" width="400" height="300">
+        </li>
+        <li>
+          <p class="js-test-text">高さを揃える</p>
+          <img src="./assets/swiper_019/300-1b42e3cf.jpg" alt="" width="400" height="300">
+        </li>
+      </ul>
+    
+    
+      <h2>スライダー毎に中の要素の高さを揃える</h2>
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <p class="js-test-title01">スライダー毎に高さを揃えるスライダー毎に高さを揃えるスライダー毎に高さを揃える</p>
+            <img src="./assets/swiper_019/300-a0f165c1.jpg" alt="" width="400" height="300">
+            <p class="js-test-title02">高さを揃える2つめ高さを揃える2つめ高さを揃える2つめ高さを揃える2つめ高さを揃える2つめ</p>
+            <p>テキストテキスト</p>
+          </div>
+          <div class="swiper-slide">
+            <p class="js-test-title01">スライダー毎に高さを揃える</p>
+            <img src="./assets/swiper_019/300-0e3eb13a.jpg" alt="" width="400" height="300">
+            <p class="js-test-title02">高さを揃える2つめ</p>
+            <p>テキストテキスト</p>
+          </div>
+          <div class="swiper-slide">
+            <p class="js-test-title01">スライダー毎に高さを揃える</p>
+            <img src="./assets/swiper_019/300-4de89a88.jpg" alt="" width="400" height="300">
+            <p class="js-test-title02">高さを揃える2つめ</p>
+            <p>テキストテキスト</p>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <p class="js-test-title01">スライダー毎に高さを揃えるスライダー毎に高さを揃えるスライダー毎に高さを揃えるスライダー毎に高さを揃えるスライダー毎に高さを揃える</p>
+            <img src="./assets/swiper_019/300-a0f165c1.jpg" alt="" width="400" height="300">
+            <p class="js-test-title02">高さを揃える2つめ高さを揃える2つめ高さを揃える2つめ高さを揃える2つめ高さを揃える2つめ</p>
+            <p>テキストテキスト</p>
+          </div>
+          <div class="swiper-slide">
+            <p class="js-test-title01">スライダー毎に高さを揃えるスライダー毎に高さを揃えるスライダー毎に高さを揃える</p>
+            <img src="./assets/swiper_019/300-472b9519.jpg" alt="" width="400" height="300">
+            <p class="js-test-title02">高さを揃える2つめ</p>
+            <p>テキストテキスト</p>
+          </div>
+          <div class="swiper-slide">
+            <p class="js-test-title01">スライダー毎に高さを揃える</p>
+            <img src="./assets/swiper_019/300-0e3eb13a.jpg" alt="" width="400" height="300">
+            <p class="js-test-title02">高さを揃える2つめ</p>
+            <p>テキストテキスト</p>
+          </div>
+          <div class="swiper-slide">
+            <p class="js-test-title01">スライダー毎に高さを揃える</p>
+            <img src="./assets/swiper_019/300-4de89a88.jpg" alt="" width="400" height="300">
+            <p class="js-test-title02">高さを揃える2つめ</p>
+            <p>テキストテキスト</p>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          //要素の高さ調整関数
+          const listHeight = (setOptions) => {
+            const defaultOptions = {
+              targets: null,  //対象リスト
+              parent: null,  //検索対象にする親要素
+              column: 1,  //カラム数
+            };
+
+            //設定をマージ
+            const options = Object.assign({}, defaultOptions, setOptions);
+
+            //ターゲットが存在しない場合は終了
+            let targets = options.targets;
+            if(targets === null) {
+              return;
+            }
+
+            //親グループが指定されているかチェック
+            const parent = options.parent;
+            if(parent !== null) {
+              targets = parent.querySelectorAll(targets);
+            } else {
+              targets = document.querySelectorAll(targets);
+            }
+
+            //要素の高さをリセット
+            targets.forEach((target) => {
+              target.style.height = '';
+            });
+
+            //設定された列の数が1以下だった場合は処理を停止
+            const column = options.column;
+            if(column <= 1) {
+              return;
+            }
+
+            //行の高さの配列
+            let lineHeightArray = [];
+            //行ごとの要素の高さを取得
+            targets.forEach((target,i) => {
+              const height = target.offsetHeight;
+              //行番号を取得
+              const arrayIndex = Math.floor(i / column);
+              if (lineHeightArray.length <= arrayIndex || lineHeightArray[arrayIndex] < height) {
+                  lineHeightArray[arrayIndex] = height;
+              }
+            });
+
+            //要素の高さを変更
+            targets.forEach((target,i) => {
+              target.style.height = lineHeightArray[Math.floor(i / column)] + 'px';
+            });
+          }
+
+          //高さを揃え関数呼び出し
+          listHeight({
+            targets: '.js-test-text',  //対象リスト
+            column: 4,  //カラム数
+          });
+          //レスポンシブ対応
+          let lastWinWidth = window.innerWidth;
+          window.addEventListener('resize', () => {
+            // 現在と前回の横幅が違う場合だけ実行
+            if (lastWinWidth !== window.innerWidth) {
+              lastWinWidth = window.innerWidth;
+
+              //高さを揃え関数呼び出し
+              listHeight({
+                targets: '.test-text',  //対象リスト
+                column: 4,  //カラム数
+              });
+            }
+          });
+
+
+          //テストスライダー
+          const sliders = document.querySelectorAll('.swiper');
+          if(sliders.length > 0) {
+
+            //スライダーパーツの高さを揃える関数
+            const sliderListHeight = (slider) => {
+              const targets = slider.querySelectorAll('.js-test-title01');
+              targetsLength = targets.length;
+              if(targetsLength > 0) {
+                //高さを揃え関数呼び出し
+                listHeight({
+                  targets: '.js-test-title01',  //対象リスト
+                  parent: slider,  //検索対象にする親要素
+                  column: targetsLength,  //カラム数
+                });
+                //column数は変わらないので別の要素にも合わせて適応できす
+                listHeight({
+                  targets: '.js-test-title02',  //対象リスト
+                  parent: slider,  //検索対象にする親要素
+                  column: targetsLength,  //カラム数
+                });
+              }
+            };
+
+            //スライダー定義
+            sliders.forEach((slider) => {
+              const swiper = new Swiper(slider, {
+                loop: true,
+                slidesPerView: 3,
+                spaceBetween: 30,
+                pagination: {
+                  el: '.swiper-pagination',
+                  clickable: true,
+                },
+                navigation: {
+                  nextEl: '.swiper-button-next',
+                  prevEl: '.swiper-button-prev',
+                },
+                on: {
+                  //スライダーが定義された時に高さを揃える
+                  init: ()=> {
+                    sliderListHeight(slider);
+                  },
+                  //レスポンシブ対応
+                  resize: ()=> {
+                    sliderListHeight(slider);
+                  }
+                },
+              });
+
+            });
+          }
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,271 @@
+<html>
+  <head>
+    <title>Day 39-Swiper 套件</title>
+    <style>/* Variables */
+      :root {
+        --success: #62DB54;
+        --border: #7C7E77;
+      }
+
+      html,body{
+        margin: 0;
+        padding: 0;
+        background-color: #000000 !important;
+        height: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      
+      .feedback {
+        background-image: url(./assets/swiper_013/bg_share-41280739.jpg);
+        height: 733px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        padding: 80px 0;
+      }
+      
+      @media (max-width: 991px) {
+        .feedback {
+          height: auto;
+        }
+      }
+      
+      .swiper {
+        width: 100%;
+        height: 429px;
+      }
+      
+      @media (max-width: 991px) {
+        .swiper {
+          height: auto;
+        }
+      }
+      
+      .swiper-img {
+        top: 0;
+        left: 10px;
+        width: 60%;
+        height: 90%;
+        border-radius: 24px;
+        position: absolute;
+      }
+      
+      .swiper-img::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        left: -10px;
+        top: 10px;
+        z-index: -1;
+      }
+      
+      @media (max-width: 991px) {
+        .swiper-img {
+          position: relative;
+          width: calc(100% - 5px);
+          height: 213px;
+          left: 5px;
+          margin-bottom: 40px;
+        }
+      
+        .swiper-img::after {
+          left: -5px;
+          top: 5px;
+        }
+      }
+      
+      .swiper-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 24px;
+      }
+      
+      .swiper .card {
+        width: 45%;
+        padding: 32px;
+        border-radius: 24px 24px 24px 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+      }
+      
+      .swiper .card h3 {
+        font-size: 18px;
+      }
+      
+      .swiper .card-img {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        right: 32px;
+        bottom: 100%;
+        transform: translateY(50%);
+      }
+      
+      @media (max-width: 991px) {
+        .swiper .card {
+          position: relative;
+          width: 100%;
+          padding: 24px;
+          margin-bottom: 32px;
+        }
+      
+        .swiper .card-img {
+          width: 80px;
+          height: 80px;
+          right: 24px;
+          top: -30px;
+          bottom: auto;
+          transform: none;
+        }
+      }
+      
+      .swiper-button-next::after, .swiper-button-prev::after {
+        /* content: '' !important; */
+        font-size: 20px !important;
+        font-weight: 600;
+        color: #62DB54;
+      }
+      
+      .swiper-button-next, .swiper-button-prev {
+        position: unset !important;
+        width: 24px !important;
+        height: 24px !important;
+        margin-top: 0 !important;
+        color: var(--success) !important;
+      }
+      
+      .swiper-pagination {
+        position: unset !important;
+        width: auto !important;
+      }
+      
+      .swiper-pagination-bullet {
+        background-color: var(--success) !important;
+        opacity: initial !important;
+      }
+      
+      .swiper-pagination-bullet-active {
+        width: 16px !important;
+        border-radius: 100px !important;
+      }
+      
+      .swiper-buttons {
+        bottom: 0 !important;
+        left: 30% !important;
+        transform: translateX(-50%) !important;
+        z-index: 10 !important;
+        position: absolute !important;
+      }
+      
+      @media (max-width: 991px) {
+        .swiper-buttons {
+          position: initial !important;
+          transform: none !important;
+        }
+      }
+      
+    </style>
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js "></script>
+    <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css " rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.js"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/css/swiper.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/js/swiper.min.js"></script> -->
+  </head>
+  <body>
+
+    <div class="feedback">
+      <div class="container mt-3">
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <div class="swiper position-relative">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide position-relative">
+                  <div class="swiper-img">
+                     <img src="./assets/swiper_013/photo-1488190211105-8b0e65b80b4e-a976d779.avif" alt="">
+                  </div>
+                  <div class="card">
+                    <h3 class="mb-3 mb-md-2">老師很有耐心</h3>
+                    <p class="mb-0">老師手把手的細心教學，用手繪圖，以淺顯易懂的方式，讓零網頁基礎的我也能快速了解網頁的架構與原理，學網頁變得有趣多了！</p>
+                    <img src="./assets/swiper_013/student01-54a79354.jpg" alt="" class="card-img">
+                  </div>
+                </div>
+                <div class="swiper-slide position-relative">
+                  <div class="swiper-img">
+                    <img src="./assets/swiper_013/photo-1501504905252-473c47e087f8-2cbc6a57.avif" alt="">
+                  </div>
+                  <div class="card">
+                    <h3 class="mb-3 mb-md-2">老師很有耐心</h3>
+                    <p class="mb-0">老師手把手的細心教學，用手繪圖，以淺顯易懂的方式，讓零網頁基礎的我也能快速了解網頁的架構與原理，學網頁變得有趣多了！</p>
+                    <img src="./assets/swiper_013/student02-fc8bf866.jpg" alt="" class="card-img">
+                  </div>
+                </div>
+                <div class="swiper-slide position-relative">
+                  <div class="swiper-img">
+                    <img src="./assets/swiper_013/photo-1499750310107-5fef28a66643-08c35ee4.avif" alt="">
+                  </div>
+                  <div class="card">
+                    <h3 class="mb-3 mb-md-2">老師很有耐心</h3>
+                    <p class="mb-0">老師手把手的細心教學，用手繪圖，以淺顯易懂的方式，讓零網頁基礎的我也能快速了解網頁的架構與原理，學網頁變得有趣多了！</p>
+                    <img src="./assets/swiper_013/student03-a277e224.jpg" alt="" class="card-img">
+                  </div>
+                </div>
+                <div class="swiper-slide">Slide 4</div>
+              </div>
+              <div class="d-flex align-items-center justify-content-center swiper-buttons">
+                <span class="material-icons swiper-button-prev fs-md link-primary me-4">
+                <!-- west -->
+              </span>
+                <div class="swiper-pagination d-flex"></div>
+                <span class="material-icons swiper-button-next fs-md link-primary ms-4">
+                <!-- east -->
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Initialize Swiper
+        const swiper = new Swiper('.swiper', {
+          // Optional parameters
+          effect: 'fade',
+          fadeEffect: {
+            crossFade: true
+          },
+          
+          // If we need pagination
+          pagination: {
+            el: '.swiper-pagination',
+          },
+
+          // Navigation arrows
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+
+      });
+    </script>
+  </body>
+</html>

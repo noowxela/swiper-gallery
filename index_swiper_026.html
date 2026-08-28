@@ -1,0 +1,583 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>swipre time section</title>
+    <style>/* Variables */
+      @import url('https://fonts.googleapis.com/css2?family=Gloock&family=Herr+Von+Muellerhoff&family=Montserrat:wght@100;200;300;400&family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto:ital,wght@0,100;0,;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Tilt+Neon&display=swap');
+      /*font-family: 'Montserrat', sans-serif;
+      font-family: 'Open Sans', sans-serif;
+      font-family: 'Roboto', sans-serif;
+      font-family: 'Tilt Neon', cursive; */
+      :root {
+          --main-color1: #673de6;
+          --main-color2: #fc5185;
+          --main-color3: rgba(0, 0, 0, 0.8);
+          --text-color: #2f1c6a;
+          --gerideant-color: linear-gradient(163deg, 
+                              rgba(103, 61, 230, 0.9836309523809523) 23%, 
+                              rgba(252, 81, 133, 1) 100%);
+          --gerideant-color2: rgb(103, 61, 230);
+      }
+
+      * {
+          font-family: 'Roboto', sans-serif;
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          outline: none;
+          border: none;
+          text-decoration: none;
+          transition: .3s linear;
+      }
+
+      html {
+          font-size: 62.5%;
+          overflow-x: hidden;
+          scroll-padding-top: 9rem;
+          scroll-behavior: smooth;
+      }
+
+      html::-webkit-scrollbar {
+          width: .8rem;
+      }
+
+      html::-webkit-scrollbar-track {
+          background: transparent;
+      }
+
+      html::-webkit-scrollbar-thumb {
+          background: var(--main-color1);
+      }
+
+      body {
+          background: var(--main-color3);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 80px;
+      }
+
+      .team-box {
+          width: 100%;
+          height: 100%;
+      }
+
+      .team-box1 {
+        background-image: url("./swiper/img/001.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .team-box2 {
+        background-image: url("./swiper/img/002.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .team-box3 {
+        background-image: url("./swiper/img/003.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .team-box4 {
+        background-image: url("./swiper/img/004.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .team-box5 {
+        background-image: url("./swiper/img/005.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .team-box6 {
+        background-image: url("./swiper/img/001.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+          /* background-image: url(team-img-6.png); */
+      }
+
+      .team-box7 {
+        background-image: url("./swiper/img/002.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+          /* background-image: url(team-img-7.png); */
+      }
+
+      .team-box8 {
+        background-image: url("./swiper/img/003.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+          /* background-image: url(team-img-8.png); */
+      }
+
+      .team-box9 {
+        background-image: url("./swiper/img/004.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+          /* background-image: url(team-img-9.png); */
+      }
+
+      .team-box10 {
+        background-image: url("./swiper/img/005.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+          /* background-image: url(team-img-10.png); */
+      }
+
+      .team-name {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+      }
+
+      .team-name::before {
+          content: "";
+          width: 0;
+          height: 0;
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          transition: .5s;
+          margin: auto;
+          margin-top: 40px;
+          border-radius: 10px;
+      }
+
+      .team-box1 .team-name::before {
+          background-image: url("./swiper/img/001.jpg");
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+      }
+
+      .team-box2 .team-name::before {
+        background-image: url("./swiper/img/002.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .team-box3 .team-name::before {
+        background-image: url("./swiper/img/003.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .team-box4 .team-name::before {
+        background-image: url("./swiper/img/004.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .team-box5 .team-name::before {
+        background-image: url("./swiper/img/005.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .team-box6 .team-name::before {
+          background-image: url("./swiper/img/001.jpg");
+          /* background-image: url(team-img-6.png); */
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+      }
+
+      .team-box7 .team-name::before {
+        background-image: url("./swiper/img/002.jpg");
+          /* background-image: url(team-img-7.png); */
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+      }
+
+      .team-box8 .team-name::before {
+        background-image: url("./swiper/img/003.jpg");
+          /* background-image: url(team-img-8.png); */
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+      }
+
+      .team-box9 .team-name::before {
+        background-image: url("./swiper/img/004.jpg");
+          /* background-image: url(team-img-9.png); */
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+      }
+
+      .team-box10 .team-name::before {
+        background-image: url("./swiper/img/005.jpg");
+          /* background-image: url(team-img-10.png); */
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+      }
+
+      .team-name:hover::before {
+          width: 60%;
+          height: 60%;
+      }
+
+      .img {
+          width: 70%;
+          height: 50%;
+          opacity: 0;
+          z-index: 999999;
+      }
+
+      .team-name:hover {
+        backdrop-filter: blur(10px);
+      }
+
+      .team-content {
+          width: 100%;
+          height: auto;
+          margin-top: 350px;
+          opacity: 0;
+      }
+
+      .team-content h2 {
+          color: #fff;
+          font-size: 25px;
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 500;
+          letter-spacing: .5px;
+          text-transform: uppercase;
+          text-decoration: underline;
+          padding: 10px;
+      }
+
+      .team-content p {
+          font-size: 15px;
+          font-family: 'Montserrat', sans-serif;
+          color: #fff;
+          letter-spacing: .5px;
+      }
+
+      .team-content ion-icon {
+          position: relative;
+          font-size: 25px;
+          padding: 10px;
+          background: #fff;
+          border-radius: 10px;
+          margin: 10px 10px;
+          cursor: pointer;
+      }
+
+      .logo-facebook {
+          color: #1771e6;
+      }
+
+      .logo-instagram {
+          color: #e459d8;
+      }
+
+      .logo-twitter {
+          color: #016dd9;
+      }
+
+      .logo-linkedin {
+          color: #2962ff;
+      }
+
+      .logo-github {
+          color: #111111;
+      }
+
+      .logo-facebook:hover {
+          color: #fff;
+          background: #1771e6;
+      }
+
+      .logo-instagram:hover {
+          color: #fff;
+          background: #e459d8;
+      }
+
+      .logo-twitter:hover {
+          color: #fff;
+          background: #016dd9;
+      }
+
+      .logo-linkedin:hover {
+          color: #fff;
+          background: #2962ff;
+      }
+
+      .logo-github:hover {
+          color: #fff;
+          background: #111111;
+      }
+
+      .team-name:hover .team-content {
+          opacity: 1;
+      }
+      body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000;
+      margin: 0;
+      padding: 0;
+    }
+
+    .swiper {
+      width: 100%;
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    .swiper-slide {
+      background-position: center;
+      background-size: cover;
+      width: 400px !important;
+      height: 500px !important;
+      cursor: pointer;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    </style>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.js"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/css/swiper.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/js/swiper.min.js"></script> -->
+  </head>
+  <body>
+    <!-- Swiper -->
+      
+      <!-- Swiper -->
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="team-box team-box1">
+          <div class="team-name">
+            <center>
+              <div class="team-content">
+                <h2>Emma Johnson</h2>
+                <p>Web Developer</p>
+                <ion-icon name="logo-facebook" class="logo-facebook"></ion-icon>
+                <ion-icon name="logo-instagram" class="logo-instagram"></ion-icon>
+                <ion-icon name="logo-twitter" class="logo-twitter"></ion-icon>
+                <ion-icon name="logo-linkedin" class="logo-linkedin"></ion-icon>
+                <ion-icon name="logo-github" class="logo-github"></ion-icon>
+              </div>
+            </center>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="team-box team-box2">
+          <div class="team-name">
+            <center>
+              <div class="team-content">
+                <h2>John Smith</h2>
+                <p>Web Designer</p>
+                <ion-icon name="logo-facebook" class="logo-facebook"></ion-icon>
+                <ion-icon name="logo-instagram" class="logo-instagram"></ion-icon>
+                <ion-icon name="logo-twitter" class="logo-twitter"></ion-icon>
+                <ion-icon name="logo-linkedin" class="logo-linkedin"></ion-icon>
+                <ion-icon name="logo-github" class="logo-github"></ion-icon>
+              </div>
+            </center>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="team-box team-box3">
+          <div class="team-name">
+            <center>
+              <div class="team-content">
+                <h2>Olivia Smith</h2>
+                <p>Content Writer</p>
+                <ion-icon name="logo-facebook" class="logo-facebook"></ion-icon>
+                <ion-icon name="logo-instagram" class="logo-instagram"></ion-icon>
+                <ion-icon name="logo-twitter" class="logo-twitter"></ion-icon>
+                <ion-icon name="logo-linkedin" class="logo-linkedin"></ion-icon>
+                <ion-icon name="logo-github" class="logo-github"></ion-icon>
+              </div>
+            </center>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="team-box team-box4">∑
+          <div class="team-name">
+            <center>
+              <div class="team-content">
+                <h2>Michael Johnson</h2>
+                <p>Social Media Manager</p>
+                <ion-icon name="logo-facebook" class="logo-facebook"></ion-icon>
+                <ion-icon name="logo-instagram" class="logo-instagram"></ion-icon>
+                <ion-icon name="logo-twitter" class="logo-twitter"></ion-icon>
+                <ion-icon name="logo-linkedin" class="logo-linkedin"></ion-icon>
+                <ion-icon name="logo-github" class="logo-github"></ion-icon>
+              </div>
+            </center>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="team-box team-box5">
+          <div class="team-name">
+            <center>
+              <div class="team-content">
+                <h2>Ava Brown</h2>
+                <p>SEO Specialist</p>
+                <ion-icon name="logo-facebook" class="logo-facebook"></ion-icon>
+                <ion-icon name="logo-instagram" class="logo-instagram"></ion-icon>
+                <ion-icon name="logo-twitter" class="logo-twitter"></ion-icon>
+                <ion-icon name="logo-linkedin" class="logo-linkedin"></ion-icon>
+                <ion-icon name="logo-github" class="logo-github"></ion-icon>
+              </div>
+            </center>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="team-box team-box6">
+          <div class="team-name">
+            <center>
+              <div class="team-content">
+                <h2>William Brown</h2>
+                <p>Marketing Manager</p>
+                <ion-icon name="logo-facebook" class="logo-facebook"></ion-icon>
+                <ion-icon name="logo-instagram" class="logo-instagram"></ion-icon>
+                <ion-icon name="logo-twitter" class="logo-twitter"></ion-icon>
+                <ion-icon name="logo-linkedin" class="logo-linkedin"></ion-icon>
+                <ion-icon name="logo-github" class="logo-github"></ion-icon>
+              </div>
+            </center>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="team-box team-box7">
+          <div class="team-name">
+            <center>
+              <div class="team-content">
+                <h2>Kushvinder Kaur</h2>
+                <p>Customer Support Representative</p>
+                <ion-icon name="logo-facebook" class="logo-facebook"></ion-icon>
+                <ion-icon name="logo-instagram" class="logo-instagram"></ion-icon>
+                <ion-icon name="logo-twitter" class="logo-twitter"></ion-icon>
+                <ion-icon name="logo-linkedin" class="logo-linkedin"></ion-icon>
+                <ion-icon name="logo-github" class="logo-github"></ion-icon>
+              </div>
+            </center>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="team-box team-box8">
+          <div class="team-name">
+            <center>
+              <div class="team-content">
+                <h2>David Davis</h2>
+                <p>Project Manager</p>
+                <ion-icon name="logo-facebook" class="logo-facebook"></ion-icon>
+                <ion-icon name="logo-instagram" class="logo-instagram"></ion-icon>
+                <ion-icon name="logo-twitter" class="logo-twitter"></ion-icon>
+                <ion-icon name="logo-linkedin" class="logo-linkedin"></ion-icon>
+                <ion-icon name="logo-github" class="logo-github"></ion-icon>
+              </div>
+            </center>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="team-box team-box9">
+          <div class="team-name">
+            <center>
+              <div class="team-content">
+                <h2>Avery Allen</h2>
+                <p>Data Analyst</p>
+                <ion-icon name="logo-facebook" class="logo-facebook"></ion-icon>
+                <ion-icon name="logo-instagram" class="logo-instagram"></ion-icon>
+                <ion-icon name="logo-twitter" class="logo-twitter"></ion-icon>
+                <ion-icon name="logo-linkedin" class="logo-linkedin"></ion-icon>
+                <ion-icon name="logo-github" class="logo-github"></ion-icon>
+              </div>
+            </center>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="team-box team-box10">
+          <div class="team-name">
+            <center>
+              <div class="team-content">
+                <h2>Robert Anderson</h2>
+                <p>Sales Manager</p>
+                <ion-icon name="logo-facebook" class="logo-facebook"></ion-icon>
+                <ion-icon name="logo-instagram" class="logo-instagram"></ion-icon>
+                <ion-icon name="logo-twitter" class="logo-twitter"></ion-icon>
+                <ion-icon name="logo-linkedin" class="logo-linkedin"></ion-icon>
+                <ion-icon name="logo-github" class="logo-github"></ion-icon>
+              </div>
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const swiper = new Swiper('.mySwiper', {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            loop: true,
+            // autoplay: {
+            //   delay: 5000,
+            //   disableOnInteraction: false,
+            // },
+            slidesPerView: "auto",
+            coverflowEffect: {
+              // rotate: 50,
+              // stretch: -100,
+              depth: 300,
+              modifier: 1,
+              slideShadows: true,
+            },
+            pagination: {
+              el: ".swiper-pagination",
+            },
+          });
+        });
+    </script>
+  </body>
+</html>

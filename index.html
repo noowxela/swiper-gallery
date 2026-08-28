@@ -1,0 +1,1291 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Swiper Gallery</title>
+    <style>
+      :root {
+        --bg: #0e0f12;
+        --panel: #16181d;
+        --panel-2: #1c1f26;
+        --border: #2a2e37;
+        --text: #f2f3f5;
+        --muted: #9aa3b2;
+        --accent: #7c9cff;
+        --accent-soft: rgba(124, 156, 255, 0.16);
+        --sidebar: 280px;
+        --radius: 10px;
+        --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        font-family: var(--font);
+        background: var(--bg);
+        color: var(--text);
+        overflow: hidden;
+      }
+
+      .app {
+        display: flex;
+        height: 100%;
+      }
+
+      .sidebar {
+        width: var(--sidebar);
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: var(--panel);
+        border-right: 1px solid var(--border);
+        z-index: 3;
+        transition: width 0.22s ease, border-width 0.22s ease;
+      }
+
+      .sidebar > * {
+        width: var(--sidebar);
+      }
+
+      .sidebar.collapsed {
+        width: 0;
+        border-right-width: 0;
+      }
+
+      .brand,
+      .search-wrap {
+        flex-shrink: 0;
+      }
+
+      .brand {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 20px 12px 12px 18px;
+      }
+
+      .brand-copy {
+        min-width: 0;
+      }
+
+      .brand h1 {
+        font-size: 15px;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+      }
+
+      .brand p {
+        margin-top: 4px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .search-wrap {
+        padding: 0 14px 12px;
+      }
+
+      .search-wrap input {
+        width: 100%;
+        height: 36px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--bg);
+        color: var(--text);
+        padding: 0 12px;
+        font: inherit;
+        font-size: 13px;
+        outline: none;
+      }
+
+      .search-wrap input:focus {
+        border-color: var(--accent);
+      }
+
+      .collapse-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 28px;
+        height: 28px;
+        margin-top: -2px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--bg);
+        color: var(--muted);
+        font: inherit;
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      .collapse-btn:hover {
+        color: var(--text);
+        border-color: var(--accent);
+      }
+
+      .demo-list {
+        flex: 1;
+        min-height: 0;
+        overflow: auto;
+        padding: 0 8px 16px;
+      }
+
+      .demo-row {
+        display: flex;
+        align-items: stretch;
+        border-radius: 8px;
+      }
+
+      .demo-row:hover:not(:has(.demo-credit-btn:hover)),
+      .demo-row:focus-within {
+        background: var(--panel-2);
+      }
+
+      .demo-row:has(.demo-item.active) {
+        background: var(--accent-soft);
+      }
+
+      .demo-item {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 2px 10px;
+        flex: 1;
+        min-width: 0;
+        text-align: left;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        padding: 9px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .demo-item.active {
+        background: var(--accent-soft);
+      }
+
+      .demo-item:hover,
+      .demo-row:has(.demo-item.active) .demo-item {
+        background: transparent;
+      }
+
+      .demo-id {
+        grid-row: 1 / span 2;
+        align-self: center;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: var(--accent);
+        min-width: 42px;
+      }
+
+      .demo-title {
+        font-size: 12.5px;
+        line-height: 1.35;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .demo-tag {
+        font-size: 10px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .demo-credit-btn {
+        flex-shrink: 0;
+        align-self: center;
+        width: 24px;
+        height: 24px;
+        margin-right: 6px;
+        border: 1px solid var(--border);
+        border-radius: 50%;
+        background: var(--bg);
+        color: var(--accent);
+        font: inherit;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      .demo-credit-btn:hover,
+      .demo-credit-btn[aria-expanded="true"] {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+      }
+
+      .credit-tooltip {
+        position: fixed;
+        z-index: 20;
+        min-width: 180px;
+        max-width: 280px;
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+        color: var(--text);
+      }
+
+      .credit-tooltip[hidden] {
+        display: none;
+      }
+
+      .credit-tooltip-label {
+        margin-bottom: 6px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .credit-tooltip a {
+        display: block;
+        color: var(--accent);
+        font-size: 12px;
+        line-height: 1.45;
+        text-decoration: none;
+        word-break: break-all;
+      }
+
+      .credit-tooltip a:hover {
+        text-decoration: underline;
+      }
+
+      .credit-tooltip a + a {
+        margin-top: 4px;
+      }
+
+      .empty {
+        padding: 24px 12px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .stage {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        background: #0b0c0f;
+      }
+
+      .toolbar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 56px;
+        padding: 10px 16px;
+        border-bottom: 1px solid var(--border);
+        background: var(--panel);
+      }
+
+      .menu-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--bg);
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .menu-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .current {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .current-id {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--accent);
+      }
+
+      .current-title {
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .devices {
+        display: flex;
+        gap: 4px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 3px;
+      }
+
+      .devices button,
+      .open-btn {
+        height: 30px;
+        border: 0;
+        border-radius: 6px;
+        background: transparent;
+        color: var(--muted);
+        font: inherit;
+        font-size: 12px;
+        padding: 0 10px;
+        cursor: pointer;
+      }
+
+      .devices button.active {
+        background: var(--panel-2);
+        color: var(--text);
+      }
+
+      .open-btn {
+        border: 1px solid var(--border);
+        color: var(--text);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .open-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .preview {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        padding: 16px;
+        background:
+          linear-gradient(var(--border) 1px, transparent 1px) 0 0 / 24px 24px,
+          linear-gradient(90deg, var(--border) 1px, transparent 1px) 0 0 / 24px
+            24px,
+          #111318;
+      }
+
+      .frame-wrap {
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        transition: max-width 0.2s ease;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        background: #fff;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      .frame-wrap[data-device="tablet"] {
+        max-width: 768px;
+      }
+
+      .frame-wrap[data-device="phone"] {
+        max-width: 390px;
+      }
+
+      iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: #fff;
+      }
+
+      .backdrop {
+        display: none;
+      }
+
+      @media (max-width: 860px) {
+        .sidebar,
+        .sidebar.collapsed {
+          width: var(--sidebar);
+          border-right-width: 1px;
+          position: fixed;
+          inset: 0 auto 0 0;
+          transform: translateX(-100%);
+          transition: transform 0.2s ease;
+        }
+
+        .sidebar.open {
+          transform: none;
+        }
+
+        .collapse-btn {
+          display: none;
+        }
+
+        .backdrop.open {
+          display: block;
+        }
+
+        .backdrop {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.45);
+          z-index: 2;
+        }
+
+        .preview {
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand">
+          <div class="brand-copy">
+            <h1>Swiper Gallery</h1>
+            <p id="countLabel">53 demos</p>
+          </div>
+          <button
+            class="collapse-btn"
+            id="collapseBtn"
+            type="button"
+            aria-label="Collapse demo list"
+            aria-expanded="true"
+            title="Collapse sidebar"
+          >
+            ‹
+          </button>
+        </div>
+        <div class="search-wrap">
+          <input
+            id="search"
+            type="search"
+            placeholder="Search id, title, tag"
+            autocomplete="off"
+          />
+        </div>
+        <div class="demo-list" id="demoList" tabindex="0"></div>
+      </aside>
+
+      <div class="backdrop" id="backdrop"></div>
+
+      <main class="stage">
+        <header class="toolbar">
+          <button
+            class="menu-btn"
+            id="menuBtn"
+            type="button"
+            aria-label="Collapse demo list"
+            aria-expanded="true"
+            aria-controls="sidebar"
+            title="Toggle sidebar"
+          >
+            ☰
+          </button>
+          <div class="current">
+            <div class="current-id" id="currentId">001</div>
+            <div class="current-title" id="currentTitle">
+              Swiper.js Fullscreen Zoom-in Ken Burns effect
+            </div>
+          </div>
+          <div class="devices" role="group" aria-label="Preview width">
+            <button type="button" data-device="desktop" class="active">
+              Desktop
+            </button>
+            <button type="button" data-device="tablet">Tablet</button>
+            <button type="button" data-device="phone">Phone</button>
+          </div>
+          <a
+            class="open-btn"
+            id="openBtn"
+            href="index_swiper_001.html"
+            target="_blank"
+            rel="noopener"
+            >Open</a
+          >
+        </header>
+        <div class="preview">
+          <div class="frame-wrap" id="frameWrap" data-device="desktop">
+            <iframe
+              id="preview"
+              title="Swiper demo preview"
+              src="index_swiper_001.html"
+            ></iframe>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="credit-tooltip" id="creditTooltip" hidden role="tooltip">
+      <div class="credit-tooltip-label">Credit</div>
+      <div id="creditTooltipLinks"></div>
+    </div>
+
+    <script>
+      const DEMOS = [
+        {
+          id: "001",
+          file: "index_swiper_001.html",
+          title: "Swiper.js Fullscreen Zoom-in Ken Burns effect",
+          tag: "Ken Burns",
+          credit: ["https://codepen.io/JUDr-Martin-Kov-cs/pen/xxePVNa"],
+        },
+        {
+          id: "002",
+          file: "index_swiper_002.html",
+          title: "Swiper / 数字ページネーション",
+          tag: "Pagination",
+          credit: ["https://codepen.io/ytqfjnis-the-bold/pen/JjzmgYw"],
+        },
+        {
+          id: "003ori",
+          file: "index_swiper_003ori.html",
+          title: "CodePen Home Carousel #swiperjs #flex",
+          tag: "Carousel",
+          credit: ["https://codepen.io/VecnaJS/pen/QWRXZzR"],
+        },
+        {
+          id: "004",
+          file: "index_swiper_004.html",
+          title: "Swiper Cover Flow Slider with fixed width/height",
+          tag: "Coverflow",
+          credit: ["https://codepen.io/coder-frontend/pen/aLzaov"],
+        },
+        {
+          id: "005",
+          file: "index_swiper_005.html",
+          title: "Vertical Slider",
+          tag: "Vertical",
+          credit: [
+            "https://codepen.io/noowxela-the-vuer/pen/VwJQMyK",
+            "https://codepen.io/ecemgo/pen/abrYOGG",
+          ],
+        },
+        {
+          id: "006",
+          file: "index_swiper_006.html",
+          title: "Vertical Slider",
+          tag: "Vertical",
+          credit: ["https://codepen.io/fixerrcode/details/bGyJPeE"],
+        },
+        {
+          id: "007",
+          file: "index_swiper_007.html",
+          title: "Swiper Gallery window",
+          tag: "Gallery",
+          credit: ["https://codepen.io/krautgti/details/OJwNayE"],
+        },
+        {
+          id: "008",
+          file: "index_swiper_008.html",
+          title: "Swiper slider",
+          tag: "Slider",
+          credit: ["https://codepen.io/finikkkk/pen/zYLPpVL"],
+        },
+        {
+          id: "010",
+          file: "index_swiper_010.html",
+          title: "Swiper slider",
+          tag: "Slider",
+          credit: ["https://codepen.io/yuki-monma/pen/MWXWMYa"],
+        },
+        {
+          id: "011",
+          file: "index_swiper_011.html",
+          title: "Swiper Timeline Progressbar",
+          tag: "Timeline",
+          credit: [
+            "https://codepen.io/Bruno-Dini-the-scripter/details/PovvxyP",
+          ],
+        },
+        {
+          id: "012",
+          file: "index_swiper_012.html",
+          title: "Default Swiper Slider",
+          tag: "Default",
+          credit: ["https://codepen.io/burakcanince/pen/ZERYmbY"],
+        },
+        {
+          id: "013",
+          file: "index_swiper_013.html",
+          title: "Swiper 套件 testimonial",
+          tag: "Slider",
+          credit: ["https://codepen.io/intHuang/pen/xxWmLXr"],
+        },
+        {
+          id: "014",
+          file: "index_swiper_014.html",
+          title: "Coverflow Effect - Swiper Js",
+          tag: "Coverflow",
+          credit: ["https://codepen.io/sanketbodke/pen/OJzBWWY"],
+        },
+        {
+          id: "015",
+          file: "index_swiper_015.html",
+          title: "Coverflow Effect - Swiper Js",
+          tag: "Coverflow",
+          credit: ["https://codepen.io/dmitrij-rog/pen/JjOLygR"],
+        },
+        {
+          id: "016",
+          file: "index_swiper_016.html",
+          title: "Landing page with swiper #css #swiper.js",
+          tag: "Landing",
+          credit: ["https://codepen.io/Alper-Ozdemir-the-animator/pen/JjqQVWz"],
+        },
+        {
+          id: "017",
+          file: "index_swiper_017.html",
+          title: "swiper image slider",
+          tag: "Image",
+          credit: ["https://codepen.io/ossvahid/details/dyKzMzB"],
+        },
+        {
+          id: "018",
+          file: "index_swiper_018.html",
+          title: "Team Card Slider/Swiper",
+          tag: "Cards",
+          credit: ["https://codepen.io/avindev/pen/NWXmqPq"],
+        },
+        {
+          id: "019",
+          file: "index_swiper_019.html",
+          title: "Vanilla JS",
+          tag: "Cards",
+          credit: ["https://codepen.io/web_walking_nak/pen/dyjyGxe"],
+        },
+        {
+          id: "00a",
+          file: "index_swiper_00a.html",
+          title: "Card Slider",
+          tag: "Cards",
+          credit: ["https://codepen.io/vahid_amiryan/pen/dyVzvZR"],
+        },
+        {
+          id: "020",
+          file: "index_swiper_020.html",
+          title: "Swiper Example with Centered and Larger Active Slide",
+          tag: "Centered",
+          credit: ["https://codepen.io/adityarahmanda/pen/zYjrEyd"],
+        },
+        {
+          id: "021",
+          file: "index_swiper_021.html",
+          title: "Swiper Example with Centered and Larger Active Slide",
+          tag: "Centered",
+          credit: ["https://codepen.io/sirsurveyor/pen/oNWzrqE"],
+        },
+        {
+          id: "022",
+          file: "index_swiper_022.html",
+          title: "CodePen Home Swiper coverflow",
+          tag: "Coverflow",
+          credit: ["https://codepen.io/RadDK18/pen/wvoqper"],
+        },
+        {
+          id: "023",
+          file: "index_swiper_023.html",
+          title: "Swiper demo",
+          tag: "Slider",
+          credit: ["https://codepen.io/Tracy4work/pen/ExdNOGG"],
+        },
+        {
+          id: "024",
+          file: "index_swiper_024.html",
+          title: "Swiper Example with Centered and Larger Active Slide",
+          tag: "Centered",
+          credit: ["https://codepen.io/adityarahmanda/pen/zYjrEyd"],
+        },
+        {
+          id: "025",
+          file: "index_swiper_025.html",
+          title: "Different width for slides",
+          tag: "Variable",
+          credit: [
+            "https://codesandbox.io/p/sandbox/different-width-for-slides-swiper-8wy1hg?file=%2Findex.html%3A3%2C9-6%2C46",
+          ],
+        },
+        {
+          id: "026",
+          file: "index_swiper_026.html",
+          title: "swipre time section",
+          tag: "Timeline",
+          credit: [
+            
+          ],
+        },
+        {
+          id: "027",
+          file: "index_swiper_027.html",
+          title: "SwiperJS - CenteredSlides + WatchOverflow",
+          tag: "Centered",
+          credit: ["https://codepen.io/mlegait/pen/KoEJEK"],
+        },
+        {
+          id: "028",
+          file: "index_swiper_028.html",
+          title: "Parcel Sandbox",
+          tag: "Slider",
+          credit: [
+            "https://codesandbox.io/p/sandbox/swiper-slidesperview-based-on-container-element-width-not-window-width-y8rbq?file=%2Findex.html%3A4%2C12-4%2C26",
+          ],
+        },
+        {
+          id: "029",
+          file: "index_swiper_029.html",
+          title: "Swiper coverflow",
+          tag: "Coverflow",
+          credit: ["https://codepen.io/aminsamad/pen/xxOBvRj"],
+        },
+        {
+          id: "030",
+          file: "index_swiper_030.html",
+          title: "Swiper coverflow",
+          tag: "Coverflow",
+          credit: ["https://codepen.io/digistate/pen/KZWYwo"],
+        },
+        {
+          id: "031",
+          file: "index_swiper_031.html",
+          title: "CoverFlow with item flipping",
+          tag: "Coverflow",
+          credit: ["https://codepen.io/pete-rai/details/jOzgeXQ"],
+        },
+        {
+          id: "032",
+          file: "index_swiper_032.html",
+          title: "Responsive YouTube Player as Coverflow Slider with Swiper.js",
+          tag: "Video",
+          credit: ["https://codepen.io/mark_sottek/details/eYZdRaZ"],
+        },
+        {
+          id: "033",
+          file: "index_swiper_033.html",
+          title: "pokemon Card Cover Flow Slider",
+          tag: "Cards",
+          credit: ["https://codepen.io/ratul16/details/zYLbGzR"],
+        },
+        {
+          id: "034",
+          file: "index_swiper_034.html",
+          title:
+            "Card Slider Using Html CSS & Javascript - 3D Responsive Slider Using Swiper.js",
+          tag: "Cards",
+          credit: ["https://codepen.io/MendozaDev/pen/YzXgYeE"],
+        },
+        {
+          id: "035",
+          file: "index_swiper_035.html",
+          title: "Swiper 3D carousel 16:9 aspect ratio with Tailwindcss",
+          tag: "3D",
+          credit: ["https://codepen.io/Zsena/details/NWyvabx"],
+        },
+        {
+          id: "036",
+          file: "index_swiper_036.html",
+          title: "Amazing Responsive Slider",
+          tag: "Slider",
+          credit: ["https://codepen.io/MuzammalAhmed/pen/VwVNPbL"],
+        },
+        {
+          id: "037",
+          file: "index_swiper_037.html",
+          title: "Parallax Slider",
+          tag: "Parallax",
+          credit: ["https://codepen.io/chandrashekhar/details/wvwpNZz"],
+        },
+        {
+          id: "039",
+          file: "index_swiper_039.html",
+          title: "Food card",
+          tag: "Slider",
+          credit: ["https://codepen.io/kristen17/pen/BaGOOMm"],
+        },
+        {
+          id: "040",
+          file: "index_swiper_040.html",
+          title: "Swiper slider coverflow advanced",
+          tag: "Coverflow",
+          credit: ["https://codepen.io/Webevasion/pen/WwwZYz"],
+        },
+        {
+          id: "041",
+          file: "index_swiper_041.html",
+          title: "Music Player ",
+          tag: "Music",
+          credit: [
+            "https://github.com/ecemgo",
+            "https://github.com/ecemgo/mini-samples-great-tricks",
+            "https://codepen.io/ecemgo/pen/vYPadZz",
+          ],
+        },
+        {
+          id: "042",
+          file: "index_swiper_042.html",
+          title: "Swiper JS - Coverflow",
+          tag: "Coverflow",
+          credit: ["https://codepen.io/ismailvtl/pen/yExMom"],
+        },
+        {
+          id: "043",
+          file: "index_swiper_043.html",
+          title: "Swiper JS - Coverflow",
+          tag: "Coverflow",
+          credit: ["https://codepen.io/kristen17/pen/BaGEeKe"],
+        },
+        {
+          id: "044",
+          file: "index_swiper_044.html",
+          title: "Swiper slider in mobile",
+          tag: "Mobile",
+          credit: ["https://codepen.io/md-aqil/pen/RXaBRb"],
+        },
+        {
+          id: "045",
+          file: "index_swiper_045.html",
+          title: "Interactive UI Cards",
+          tag: "Cards",
+          credit: ["https://codepen.io/Gogh/pen/PLqyNa"],
+        },
+        {
+          id: "046",
+          file: "index_swiper_046.html",
+          title: "Interactive UI Cards",
+          tag: "Music",
+          credit: [
+            "https://github.com/ecemgo",
+            "https://codepen.io/ecemgo/pen/MWxjXeq",
+          ],
+        },
+        {
+          id: "047",
+          file: "index_swiper_047.html",
+          title: "Item detail",
+          tag: "Gallery",
+          credit: ["https://codepen.io/rafaelavlucas/pen/OJLzBOP"],
+        },
+        {
+          id: "048",
+          file: "index_swiper_048.html",
+          title: "Music player",
+          tag: "Music",
+          credit: [
+            "https://rafaelalucas.com/",
+            "https://github.com/rafaelavlucas",
+            "https://codepen.io/rafaelavlucas/pen/GRgEeed",
+          ],
+        },
+        {
+          id: "049",
+          file: "index_swiper_049.html",
+          title: "Map travel",
+          tag: "Travel",
+          credit: ["https://codepen.io/trinketmage/pen/xjgJoG"],
+        },
+        {
+          id: "050",
+          file: "index_swiper_050.html",
+          title: "Shoes Display",
+          tag: "Ecommerce",
+          credit: [
+            "https://rafaelalucas.com/",
+            "https://github.com/rafaelavlucas",
+            "https://codepen.io/rafaelavlucas/pen/eYmPLWm",
+          ],
+        },
+      ];
+
+      const listEl = document.getElementById("demoList");
+      const searchEl = document.getElementById("search");
+      const countLabel = document.getElementById("countLabel");
+      const currentId = document.getElementById("currentId");
+      const currentTitle = document.getElementById("currentTitle");
+      const openBtn = document.getElementById("openBtn");
+      const preview = document.getElementById("preview");
+      const frameWrap = document.getElementById("frameWrap");
+      const sidebar = document.getElementById("sidebar");
+      const backdrop = document.getElementById("backdrop");
+      const menuBtn = document.getElementById("menuBtn");
+      const collapseBtn = document.getElementById("collapseBtn");
+      const creditTooltip = document.getElementById("creditTooltip");
+      const creditTooltipLinks = document.getElementById("creditTooltipLinks");
+      const COLLAPSE_KEY = "swiper-gallery-sidebar-collapsed";
+      const mobileQuery = window.matchMedia("(max-width: 860px)");
+
+      let selectedId = DEMOS[0].id;
+      let visible = DEMOS.slice();
+
+      function findDemo(id) {
+        const key = decodeURIComponent(id || "")
+          .replace(/^#/, "")
+          .replace(/^index_swiper_/, "")
+          .replace(/\.html$/, "");
+        return (
+          DEMOS.find((demo) => demo.id.toLowerCase() === key.toLowerCase()) ||
+          DEMOS[0]
+        );
+      }
+
+      function matches(demo, query) {
+        if (!query) return true;
+        const haystack = [demo.id, demo.title, demo.tag, demo.file]
+          .concat(demo.credit || [])
+          .join(" ")
+          .toLowerCase();
+        return haystack.includes(query);
+      }
+
+      function creditLabel(url) {
+        try {
+          const parsed = new URL(url);
+          return (parsed.host + parsed.pathname).replace(/\/$/, "");
+        } catch {
+          return url;
+        }
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      let creditHideTimer = 0;
+
+      function hideCreditTooltip() {
+        clearTimeout(creditHideTimer);
+        creditTooltip.hidden = true;
+        listEl
+          .querySelectorAll('.demo-credit-btn[aria-expanded="true"]')
+          .forEach((btn) => {
+            btn.setAttribute("aria-expanded", "false");
+          });
+      }
+
+      function positionCreditTooltip(anchor) {
+        const rect = anchor.getBoundingClientRect();
+        creditTooltip.hidden = false;
+        const tipW = creditTooltip.offsetWidth;
+        const tipH = creditTooltip.offsetHeight;
+        let left = rect.right + 8;
+        let top = rect.top;
+        if (left + tipW > window.innerWidth - 8) {
+          left = Math.max(8, window.innerWidth - tipW - 8);
+          top = rect.bottom + 8;
+        }
+        if (top + tipH > window.innerHeight - 8) {
+          top = Math.max(8, window.innerHeight - tipH - 8);
+        }
+        creditTooltip.style.left = left + "px";
+        creditTooltip.style.top = top + "px";
+      }
+
+      function showCreditTooltip(demo, anchor) {
+        clearTimeout(creditHideTimer);
+        if (
+          !demo ||
+          !Array.isArray(demo.credit) ||
+          !demo.credit.length ||
+          !anchor
+        ) {
+          hideCreditTooltip();
+          return;
+        }
+        creditTooltipLinks.innerHTML = demo.credit
+          .map(
+            (url) =>
+              '<a href="' +
+              escapeHtml(url) +
+              '" target="_blank" rel="noopener">' +
+              escapeHtml(creditLabel(url)) +
+              "</a>",
+          )
+          .join("");
+        listEl.querySelectorAll(".demo-credit-btn").forEach((btn) => {
+          btn.setAttribute("aria-expanded", btn === anchor ? "true" : "false");
+        });
+        positionCreditTooltip(anchor);
+      }
+
+      function scheduleHideCreditTooltip() {
+        clearTimeout(creditHideTimer);
+        creditHideTimer = setTimeout(hideCreditTooltip, 180);
+      }
+
+      function renderList() {
+        hideCreditTooltip();
+        const query = searchEl.value.trim().toLowerCase();
+        visible = DEMOS.filter((demo) => matches(demo, query));
+        countLabel.textContent = query
+          ? visible.length + " of " + DEMOS.length + " demos"
+          : DEMOS.length + " demos";
+
+        if (!visible.length) {
+          listEl.innerHTML = '<div class="empty">No matching demos</div>';
+          return;
+        }
+
+        listEl.innerHTML = visible
+          .map((demo) => {
+            const creditBtn =
+              Array.isArray(demo.credit) && demo.credit.length
+                ? '<button type="button" class="demo-credit-btn" data-id="' +
+                  demo.id +
+                  '" aria-label="Show credit for ' +
+                  demo.id +
+                  '" aria-expanded="false">i</button>'
+                : "";
+            return (
+              '<div class="demo-row">' +
+              '<button type="button" class="demo-item' +
+              (demo.id === selectedId ? " active" : "") +
+              '" data-id="' +
+              demo.id +
+              '">' +
+              '<span class="demo-id">' +
+              demo.id +
+              "</span>" +
+              '<span class="demo-title">' +
+              demo.title +
+              "</span>" +
+              '<span class="demo-tag">' +
+              demo.tag +
+              "</span>" +
+              "</button>" +
+              creditBtn +
+              "</div>"
+            );
+          })
+          .join("");
+      }
+
+      function selectDemo(id, { updateHash = true, close = false } = {}) {
+        const demo = findDemo(id);
+        selectedId = demo.id;
+        currentId.textContent = demo.id;
+        currentTitle.textContent = demo.title;
+        openBtn.href = demo.file;
+        preview.src = demo.file;
+        preview.title = demo.id + " — " + demo.title;
+        if (updateHash) {
+          history.replaceState(null, "", "#" + demo.id);
+        }
+        renderList();
+        const active = listEl.querySelector(".demo-item.active");
+        if (active) active.scrollIntoView({ block: "nearest" });
+        if (close) closeSidebar();
+      }
+
+      function moveSelection(delta) {
+        if (!visible.length) return;
+        const index = visible.findIndex((demo) => demo.id === selectedId);
+        const nextIndex = Math.max(
+          0,
+          Math.min(visible.length - 1, (index < 0 ? 0 : index) + delta),
+        );
+        selectDemo(visible[nextIndex].id);
+      }
+
+      function isMobile() {
+        return mobileQuery.matches;
+      }
+
+      function readCollapsedPref() {
+        try {
+          return localStorage.getItem(COLLAPSE_KEY) === "1";
+        } catch {
+          return false;
+        }
+      }
+
+      function writeCollapsedPref(collapsed) {
+        try {
+          localStorage.setItem(COLLAPSE_KEY, collapsed ? "1" : "0");
+        } catch {
+          /* ignore quota / private mode */
+        }
+      }
+
+      function syncToggleLabels(collapsed) {
+        const expanded = !collapsed;
+        menuBtn.setAttribute("aria-expanded", String(expanded));
+        menuBtn.setAttribute(
+          "aria-label",
+          isMobile()
+            ? expanded
+              ? "Close demo list"
+              : "Open demo list"
+            : collapsed
+              ? "Expand demo list"
+              : "Collapse demo list",
+        );
+        collapseBtn.setAttribute("aria-expanded", String(expanded));
+      }
+
+      function setDesktopCollapsed(collapsed) {
+        sidebar.classList.toggle("collapsed", collapsed && !isMobile());
+        syncToggleLabels(sidebar.classList.contains("collapsed"));
+        if (collapsed) hideCreditTooltip();
+      }
+
+      function closeSidebar() {
+        sidebar.classList.remove("open");
+        backdrop.classList.remove("open");
+        if (isMobile()) syncToggleLabels(true);
+      }
+
+      function openSidebar() {
+        sidebar.classList.add("open");
+        backdrop.classList.add("open");
+        if (isMobile()) syncToggleLabels(false);
+      }
+
+      function toggleSidebar() {
+        if (isMobile()) {
+          if (sidebar.classList.contains("open")) closeSidebar();
+          else openSidebar();
+          return;
+        }
+        const next = !sidebar.classList.contains("collapsed");
+        setDesktopCollapsed(next);
+        writeCollapsedPref(next);
+      }
+
+      function applyLayoutMode() {
+        if (isMobile()) {
+          sidebar.classList.remove("collapsed");
+          syncToggleLabels(!sidebar.classList.contains("open"));
+          return;
+        }
+        closeSidebar();
+        setDesktopCollapsed(readCollapsedPref());
+      }
+
+      listEl.addEventListener("click", (event) => {
+        const creditBtn = event.target.closest(".demo-credit-btn");
+        if (creditBtn) {
+          event.preventDefault();
+          event.stopPropagation();
+          if (window.matchMedia("(hover: hover)").matches) {
+            showCreditTooltip(findDemo(creditBtn.dataset.id), creditBtn);
+            return;
+          }
+          if (creditBtn.getAttribute("aria-expanded") === "true") {
+            hideCreditTooltip();
+          } else {
+            showCreditTooltip(findDemo(creditBtn.dataset.id), creditBtn);
+          }
+          return;
+        }
+        const item = event.target.closest(".demo-item");
+        if (!item) return;
+        hideCreditTooltip();
+        selectDemo(item.dataset.id, { close: true });
+        listEl.focus({ preventScroll: true });
+      });
+
+      listEl.addEventListener("pointerover", (event) => {
+        const creditBtn = event.target.closest(".demo-credit-btn");
+        if (!creditBtn) return;
+        showCreditTooltip(findDemo(creditBtn.dataset.id), creditBtn);
+      });
+
+      listEl.addEventListener("pointerout", (event) => {
+        const creditBtn = event.target.closest(".demo-credit-btn");
+        if (!creditBtn) return;
+        const next = event.relatedTarget;
+        if (next && (creditTooltip.contains(next) || creditBtn.contains(next))) {
+          return;
+        }
+        scheduleHideCreditTooltip();
+      });
+
+      creditTooltip.addEventListener("pointerenter", () => {
+        clearTimeout(creditHideTimer);
+      });
+      creditTooltip.addEventListener("pointerleave", scheduleHideCreditTooltip);
+      listEl.addEventListener("scroll", hideCreditTooltip);
+      document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        hideCreditTooltip();
+        if (isMobile() && sidebar.classList.contains("open")) closeSidebar();
+      });
+
+      searchEl.addEventListener("input", renderList);
+      searchEl.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowDown") {
+          event.preventDefault();
+          moveSelection(1);
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          moveSelection(-1);
+        } else if (event.key === "Enter") {
+          event.preventDefault();
+          window.open(findDemo(selectedId).file, "_blank", "noopener");
+        }
+      });
+
+      document.querySelectorAll(".devices button").forEach((button) => {
+        button.addEventListener("click", () => {
+          document
+            .querySelectorAll(".devices button")
+            .forEach((el) => el.classList.remove("active"));
+          button.classList.add("active");
+          frameWrap.dataset.device = button.dataset.device;
+        });
+      });
+
+      menuBtn.addEventListener("click", toggleSidebar);
+      collapseBtn.addEventListener("click", () => {
+        setDesktopCollapsed(true);
+        writeCollapsedPref(true);
+      });
+      backdrop.addEventListener("click", closeSidebar);
+      mobileQuery.addEventListener("change", applyLayoutMode);
+
+      listEl.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowDown") {
+          event.preventDefault();
+          moveSelection(1);
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          moveSelection(-1);
+        } else if (event.key === "Enter") {
+          event.preventDefault();
+          window.open(findDemo(selectedId).file, "_blank", "noopener");
+        }
+      });
+
+      window.addEventListener("hashchange", () => {
+        selectDemo(location.hash, { updateHash: false });
+      });
+
+      renderList();
+      applyLayoutMode();
+      selectDemo(location.hash || DEMOS[0].id, { updateHash: !location.hash });
+    </script>
+  </body>
+</html>

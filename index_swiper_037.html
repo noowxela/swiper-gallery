@@ -1,0 +1,387 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Parallax Slider</title>
+    <style>/* Variables */
+      @import url('https://fonts.googleapis.com/css?family=Barlow:400,700,900&display=swap');
+
+      :root {
+        --red-color: #ff003c;
+        --black-color: #070707;
+        --white-color: #ffffff;
+        --font-family: 'Barlow', sans-serif;
+      }
+
+      body {
+        background-color: var(--black-color) !important;
+        font-family: var(--font-family);
+      }
+
+      .image-slider .swiper-slide {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .image-slider .swiper-slide .wrapper {
+        margin-top: 200px;
+        margin-bottom: 200px;
+      }
+
+      .image-slider .swiper-slide .img-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .image-slider .swiper-slide .sub-title {
+        font-size: 2rem;
+        text-transform: uppercase;
+        color: var(--white-color);
+        font-weight: 900;
+        margin-bottom: -30px;
+      }
+
+      .image-slider .swiper-slide .title {
+        font-size: 4rem;
+        font-weight: 900;
+        color: var(--white-color);
+        text-transform: uppercase;
+      }
+
+      .image-slider .swiper-slide .description {
+        color: var(--white-color);
+        font-size: 1rem;
+        text-align: justify;
+      }
+
+      .image-slider .controls {
+        position: relative;
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 20px;
+      }
+
+      .image-slider .ctrl {
+        height: 60px;
+        width: 60px;
+        border: 1px solid var(--white-color);
+        color: var(--white-color);
+        border-radius: 500px;
+        background-image: none;
+        position: relative;
+        margin: 0;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        outline: 0;
+        transition: all ease 0.1s;
+      }
+
+      .image-slider .ctrl:hover {
+        color: var(--black-color);
+        background-color: var(--white-color);
+      }
+
+      .image-slider .ctrl.next-ctrl {
+        margin-left: 20px;
+      }
+
+      .image-slider .text-wrapper {
+        overflow: hidden;
+        display: inline-flex;
+      }
+
+      .image-slider .text-wrapper .text-inner {
+        transform: translateY(100%);
+        transition: all ease 0.5s;
+      }
+
+      /* Active states */
+      .image-slider .swiper-slide-active.active .text-inner {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      /* Delays */
+      .image-slider .swiper-slide.active .sub-title .text-inner {
+        transition-delay: 0.05s;
+      }
+
+      .image-slider .swiper-slide.active .title .text-inner {
+        transition-delay: 0.1s;
+      }
+
+      .image-slider .swiper-slide.active .description .text-inner {
+        transition-delay: 0.15s;
+      }
+
+      /* Credits */
+      .credits {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #ffffff;
+        z-index: 1;
+        background-color: #000000aa;
+        padding: 10px;
+      }
+
+      .credits a {
+        background-color: #ffffff;
+        color: #000000;
+      }
+
+      .pens_link {
+        position: absolute;
+        bottom: 56px;
+        right: 56px;
+        margin: auto;
+        display: inline-flex;
+        font-size: 2rem;
+        text-decoration: none;
+        border-radius: 500px;
+        border: 4px solid #212121;
+        background-color: #ffffff;
+        color: #212121;
+        height: 56px;
+        width: 56px;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        animation: profileAnimate 1500ms ease infinite;
+        transition: all ease 2s;
+        z-index: 9999;
+      }
+
+      .pens_link:hover {
+        text-decoration: none;
+        transform: scale(1.5);
+        animation: none;
+      }
+
+      @keyframes profileAnimate {
+        0%,
+        100% {
+          transform: translateY(-10%);
+        }
+        50% {
+          transform: translateY(10%);
+        }
+      }
+      .transformer_box{
+        position: relative;
+      }
+      .center_container{
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+      }
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha512-7rusk8kGPFynZWu26OKbTeI+QPoYchtxsmPeBqkHIEXJxeun4yJ4ISYe7C6sz9wdxeE1Gk3VxsIWgCZTc+vX3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet"/>
+    
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.js"></script> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.js"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/swiper@4.1.6/dist/css/swiper.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@4.1.6/dist/js/swiper.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/css/swiper.min.css" rel="stylesheet"/> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/js/swiper.min.js"></script> -->
+  </head>
+  <body>
+    <!-- Slider main container -->
+    <div class="center_container">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12 px-0 transformer_box">
+            <div class="swiper-container image-slider">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <div class="img-container">
+                    <img src="./assets/swiper_037/img-85cdd968.jpg" alt="" class="img-fluid" />
+                  </div>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-8 offset-md-2">
+                        <div class="wrapper">
+                          <div class="content">
+                            <div class="sub-title">
+                              <div class="text-wrapper">
+                                <div class="text-inner">
+                                  Transformers
+                                </div>
+                              </div>
+                            </div>
+                            <div class="title">
+                              <div class="text-wrapper">
+                                <div class="text-inner">
+                                  Optimus Prime
+                                </div>
+                              </div>
+                            </div>
+                            <div class="description">
+                              <div class="text-wrapper">
+                                <div class="text-inner">
+                                  Lorem ipsum, dolor sit amet consectetur
+                                  adipisicing elit. Vitae maiores placeat velit
+                                  rem, nesciunt rerum illum natus ut facilis animi
+                                  et ad voluptatibus beatae voluptas, nihil est
+                                  alias dolorem dolore.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="controls">
+                            <div class="swiper-button-prev ctrl prev-ctrl">
+                              <i class="material-icons icon">
+                                arrow_back
+                              </i>
+                            </div>
+                            <div class="swiper-button-next ctrl next-ctrl">
+                              <i class="material-icons icon">
+                                arrow_forward
+                              </i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="img-container">
+                    <img src="./assets/swiper_037/img-4c3abe49.jpg" alt="" class="img-fluid" />
+                  </div>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-8 offset-md-2">
+                        <div class="wrapper">
+                          <div class="content">
+                            <div class="sub-title">
+                              <div class="text-wrapper">
+                                <div class="text-inner">
+                                  Transformers
+                                </div>
+                              </div>
+                            </div>
+                            <div class="title">
+                              <div class="text-wrapper">
+                                <div class="text-inner">
+                                  Bumblebee
+                                </div>
+                              </div>
+                            </div>
+                            <div class="description">
+                              <div class="text-wrapper">
+                                <div class="text-inner">
+                                  Lorem ipsum, dolor sit amet consectetur
+                                  adipisicing elit. Vitae maiores placeat velit
+                                  rem, nesciunt rerum illum natus ut facilis animi
+                                  et ad voluptatibus beatae voluptas, nihil est
+                                  alias dolorem dolore.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="controls">
+                            <div class="swiper-button-prev ctrl prev-ctrl">
+                              <i class="material-icons icon">
+                                arrow_back
+                              </i>
+                            </div>
+                            <div class="swiper-button-next ctrl next-ctrl">
+                              <i class="material-icons icon">
+                                arrow_forward
+                              </i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="credits">
+              Image Credits <a href="http://wallpaperswide.com/" target="_blank">wallpaperswide.com</a>
+            </div>
+        
+            <a href="" target="" class="pens_link">
+              <i class="fa-brands fa-codepen"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const mySwiper = new Swiper('.image-slider', {
+            speed: 1000,
+            effect: 'coverflow',
+            autoplay: false,
+            parallax: true,
+            loop: true,
+            grabCursor: true,
+            centeredSlides: true,
+            coverflowEffect: {
+              rotate: 20, // <- change this for the effect
+              depth: 10,
+              stretch: 0,
+              modifier: 1,
+              slideShadows: true
+            },
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true
+            },
+            on: {
+              init: function() {
+                let swiper = this;
+                for (let i = 0; i < swiper.slides.length; i++) {
+                  $(swiper.slides[i])
+                    .find('.img-container')
+                    .attr({
+                      'data-swiper-parallax': 0.75 * swiper.width,
+                      'data-swiper-paralalx-opacity': 0.5
+                    });
+                }
+                let index = swiper.activeIndex;
+                $(swiper.slides).removeClass('active');
+                $(swiper.slides[index]).addClass('active');
+              },
+              transitionEnd: function() {
+                let swiper = this;
+                let index = swiper.activeIndex;
+                $(swiper.slides).removeClass('active');
+                $(swiper.slides[index]).addClass('active');
+              },
+              resize: function() {
+                this.update();
+              }
+            },
+            navigation: {
+              nextEl: '.image-slider .next-ctrl',
+              prevEl: '.image-slider .prev-ctrl'
+            }
+          });
+
+        });
+    </script>
+  </body>
+</html>

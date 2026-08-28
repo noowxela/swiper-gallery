@@ -1,0 +1,203 @@
+<html>
+  <head>
+    <title>Swiper / 数字ページネーション</title>
+    <style>
+      /* Base
+  ----------------------------------*/
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 100px 0;
+        height: 80%;
+      }
+
+      /* Swiper
+  ----------------------------------*/
+      .gallery {
+        width: 100%;
+        position: relative;
+        padding: 0 100px;
+      }
+      .sp .gallery {
+        padding: 0 80px;
+      }
+
+      .swiper {
+        width: 100%;
+        /* // max-width: 800px; */
+      }
+      .sp .swiper {
+        width: 100%;
+      }
+
+      .swiper-slide {
+      }
+
+      .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 800 / 600;
+        object-fit: cover;
+      }
+
+      /* // ナビゲーション */
+      .swiper-button-prev,
+      .swiper-button-next {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px !important;
+        height: 50px !important;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        border: 1px solid #222;
+        border-radius: 50%;
+        z-index: 1;
+        cursor: pointer;
+        color: transparent !important;
+      }
+      .sp .swiper-button-prev,
+      .sp .swiper-button-next {
+        width: 40px;
+        height: 40px;
+      }
+
+      .swiper-button-prev {
+        left: 24px;
+      }
+      .sp .swiper-button-prev {
+        left: 20px;
+      }
+
+      .swiper-button-next {
+        right: 24px;
+      }
+      .sp .swiper-button-next {
+        right: 20px;
+      }
+
+      .swiper-button-prev::after,
+      .swiper-button-next::after {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border: solid #222;
+        border-width: 1px 1px 0 0;
+      }
+      .swiper-button-prev::after {
+        margin-left: 3px;
+        transform: rotate(-135deg);
+      }
+      .swiper-button-next::after {
+        margin-right: 3px;
+        transform: rotate(45deg);
+      }
+
+      .swiper-button-disabled {
+        pointer-events: none;
+        opacity: 0.5;
+      }
+
+      /* // ページネーション */
+      .swiper-pagination {
+        display: flex;
+        justify-content: center;
+        gap: 0 6px;
+        position: absolute;
+        bottom: -20px;
+        right: 0;
+        left: 0;
+        margin: 0 auto;
+      }
+
+      .swiper-pagination .swiper-pagination-total {
+        color: #0000ff;
+      }
+    </style>
+    <link
+      href="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="gallery">
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img
+                src="./assets/swiper_002/photo-1514888286974-6c03e2ca1dba-4ec0d60f.avif"
+                width="800"
+                height="600"
+                alt="dummy1"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                src="./assets/swiper_002/photo-1519052537078-e6302a4968d4-5fc951a1.avif"
+                width="800"
+                height="600"
+                alt="dummy2"
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                src="./assets/swiper_002/photo-1516280030429-27679b3dc9cf-aa877f52.avif"
+                width="800"
+                height="600"
+                alt="dummy3"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var mySwiper = new Swiper(".gallery .swiper", {
+          loop: true,
+          loopAdditionalSlides: 1,
+          centeredSlides: true,
+          speed: 400,
+          // autoplay: {
+          // 	delay: 5000,
+          // 	disableOnInteraction: false,
+          // },
+          pagination: {
+            el: ".gallery .swiper-pagination",
+            clickable: true,
+            type: "fraction",
+            // 現在のスライドのフォーマットをカスタマイズ
+            formatFractionCurrent: function (number) {
+              return ("0" + number).slice(-2); // 2桁になるように0を追加して、最後の2文字を取得
+            },
+            // 全スライド数のフォーマットをカスタマイズ
+            formatFractionTotal: function (number) {
+              return ("0" + number).slice(-2); // 同上
+            },
+          },
+          navigation: {
+            nextEl: ".gallery .swiper-button-next",
+            prevEl: ".gallery .swiper-button-prev",
+          },
+          slidesPerView: 1,
+          spaceBetween: 0,
+          breakpoints: {
+            // 768px 以上の場合
+            768: {
+              spaceBetween: 0,
+            },
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

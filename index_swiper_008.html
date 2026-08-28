@@ -1,0 +1,158 @@
+<html>
+  <head>
+    <title>Swiper slider</title>
+    <style>
+      body {
+        background-color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      .swiper {
+        padding-bottom: 60px !important;
+        height: 250px;
+        .swiper-wrapper {
+          align-items: center;
+        }
+        .swiper-slide {
+          border-radius: 5px;
+          height: 180px !important;
+          background-color: #000;
+          border: 1px solid #fff;
+          transition: 0.2s;
+          &.active {
+            height: 230px !important;
+          }
+        }
+        .prev,
+        .next {
+          cursor: pointer;
+          z-index: 100;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          opacity: 0.65;
+          transition: 0.2s;
+          &:hover {
+            opacity: 1;
+          }
+          svg {
+            width: 20px;
+            height: 20px;
+          }
+          svg path {
+            fill: #fff;
+          }
+        }
+        .prev {
+          left: 25px;
+        }
+        .next {
+          right: 25px;
+        }
+        .pagination {
+          margin-left: 8px !important;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 40px;
+          z-index: 100;
+          span {
+            font-size: 0;
+            opacity: 1;
+            margin: 0px 6px !important;
+            border: 1px solid #fff;
+            &.swiper-pagination-bullet-active {
+              background-color: transparent;
+              transform: scale(1.5);
+            }
+          }
+        }
+      }
+
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.js"></script>
+  <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.js"></script> -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/css/swiper.min.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/js/swiper.min.js"></script> -->
+  </head>
+  <body>
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"></div>
+        <div class="swiper-slide"></div>
+        <div class="swiper-slide"></div>
+        <div class="swiper-slide"></div>
+        <div class="swiper-slide"></div>
+        <div class="swiper-slide"></div>
+        <div class="swiper-slide"></div>
+        <div class="swiper-slide"></div>
+        <div class="swiper-slide"></div>
+      </div>
+    
+      <div class="pagination"></div>
+    
+      <div class="prev">
+        <svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.2625 13.2375L3.5375 7.5L9.2625 1.7625L7.5 0L0 7.5L7.5 15L9.2625 13.2375Z" fill="#A99260" />
+        </svg>
+    
+      </div>
+      <div class="next">
+        <svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.737305 13.2375L6.4623 7.5L0.737305 1.7625L2.4998 0L9.9998 7.5L2.4998 15L0.737305 13.2375Z" fill="#A99260" />
+        </svg>
+    
+      </div>
+    </div>
+    
+    <!-- Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.6/swiper-bundle.min.js"></script>
+  
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const swiper = new Swiper(".swiper", {
+          slidesPerView: 4,
+          spaceBetween: 50,
+          loop: true,
+          grabCursor: true,
+          centeredSlides: true,
+          slideActiveClass: "active",
+          navigation: {
+            nextEl: ".next",
+            prevEl: ".prev"
+          },
+          pagination: {
+            el: ".pagination",
+            clickable: true
+          },
+          autoplay: {
+            enabled: true,
+            delay: 5000
+          },
+          // Media
+          // breakpoints: {
+          //   // when window width is >= 320px
+          //   320: {
+          //     slidesPerView: 2,
+          //     spaceBetween: 20
+          //   },
+          //   // when window width is >= 480px
+          //   480: {
+          //     slidesPerView: 4,
+          //     spaceBetween: 30
+          //   },
+          // }
+        });
+
+
+      });
+    </script>
+  </body>
+</html>

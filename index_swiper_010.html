@@ -1,0 +1,154 @@
+<html>
+  <head>
+    <title>Swiper slider</title>
+    <style>
+      .p-slider {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .p-slider .swiper-slide {
+        height: 375px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 8px;
+      }
+
+      @media screen and (min-width: 768px) {
+        .p-slider .swiper-slide {
+          /* height: 960px; */
+          height: 98.5vh;
+        }
+
+        .p-slider .swiper-pagination {
+          bottom: 40px;
+          left: 40px;
+        }
+      }
+
+      .p-slider .swiper-pagination {
+        text-align: left;
+        bottom: 20px;
+        left: 20px;
+        width: 95% !important;
+        margin: 0 2.5%;
+      }
+
+      .p-slider .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+      .p-slider .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+        margin: 0;
+      }
+
+      .p-slider .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet:not(:last-child),
+      .p-slider .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet:not(:last-child) {
+        margin-right: 15px;
+      }
+
+      .p-slider .swiper-pagination-bullet {
+        width: auto;
+        height: auto;
+        line-height: 0;
+        background: none;
+        position: relative;
+      }
+
+      .p-slider .swiper-pagination-bullet::before {
+        content: '';
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        border: 1px solid #fff;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+      }
+
+      .p-slider .swiper-pagination-bullet svg {
+        transform: rotate(-90deg);
+      }
+
+      .p-slider .swiper-pagination-bullet svg circle {
+        fill: transparent;
+        stroke: #fff;
+        stroke-width: 1;
+        stroke-dasharray: 0 57;
+      }
+
+      .p-slider .swiper-pagination-bullet.swiper-pagination-bullet-active::before {
+        background: #fff;
+      }
+
+      .p-slider .swiper-pagination-bullet.swiper-pagination-bullet-active svg circle {
+        animation: circle 9s forwards;
+      }
+
+      @keyframes circle {
+        0% {
+          stroke-dasharray: 0 57;
+        }
+        100% {
+          stroke-dasharray: 57 57;
+        }
+      }
+
+
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.js"></script>
+  <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.js"></script> -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/css/swiper.min.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/js/swiper.min.js"></script> -->
+  </head>
+  <body>
+    <div class="p-slider js-slider">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide" style="background-image: url(./assets/swiper_010/img01-dafd2c11.jpg);"></div>
+        <div class="swiper-slide" style="background-image: url(./assets/swiper_010/img02-cdbba4f4.jpg);"></div>
+        <div class="swiper-slide" style="background-image: url(./assets/swiper_010/img03-653419ff.jpg);"></div>
+      </div>
+      <!-- If we need pagination -->
+      <div class="swiper-pagination"></div>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const swiper = new Swiper('.js-slider', {
+          // direction: 'vertical',
+          loop: true,
+          effect: 'fade',
+          pagination: {
+            el: '.swiper-pagination',
+            renderBullet: (index, className) => {
+              return '<span class="' + className + '"><svg class="circle" width="19" height="19" viewBox="0 0 19 19"><circle cx="9.5" cy="9.5" r="9"></svg></span>';
+              /*
+              * <svg>のwidth,height,viewBox計算方法【円の半径 × 2 + 線幅】
+              * <circle>のcx,cyは<svg>のwidthの半分の値
+              * <circle>のrは円の半径
+              */
+            },
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+          scrollbar: {
+            el: '.swiper-scrollbar',
+          },
+          speed: 2000,
+          autoplay: {
+            delay: 8000
+          },
+        });
+        swiper.on('slideChange', function () {
+          this.params.autoplay.delay = 5000;
+        });
+
+      });
+    </script>
+  </body>
+</html>

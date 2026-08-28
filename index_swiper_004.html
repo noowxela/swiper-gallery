@@ -1,0 +1,143 @@
+<html>
+  <head>
+    <title>Swiper Cover Flow Slider with fixed width/height</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        background: #0e0f12;
+        font-family:
+          Helvetica Neue,
+          Helvetica,
+          Arial,
+          sans-serif;
+        font-size: 14px;
+        color: #f2f3f5;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0e0f12;
+      }
+
+      .swiper-container {
+        width: 100%;
+        height: 360px;
+      }
+
+      .swiper-pagination-bullet {
+        background: #9aa3b2;
+        opacity: 0.55;
+      }
+
+      .swiper-pagination-bullet-active {
+        background: #7c9cff;
+        opacity: 1;
+      }
+      .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        width: 60vw;
+        height: 300px !important;
+        /* height: 400px !important; */
+      }
+      .swiper-slide-active {
+        background-color: yellow;
+      }
+    </style>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.js"></script> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.js"></script> -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/css/swiper.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/js/swiper.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Swiper -->
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div
+            class="swiper-slide"
+            style="background-image: url(./assets/swiper_004/nature-01.jpg)"
+          ></div>
+          <div
+            class="swiper-slide"
+            style="background-image: url(./assets/swiper_004/nature-02.jpg)"
+          ></div>
+          <div
+            class="swiper-slide"
+            style="background-image: url(./assets/swiper_004/nature-03.jpg)"
+          ></div>
+          <div
+            class="swiper-slide"
+            style="background-image: url(./assets/swiper_004/nature-04.jpg)"
+          ></div>
+          <div
+            class="swiper-slide"
+            style="background-image: url(./assets/swiper_004/nature-05.jpg)"
+          ></div>
+          <div
+            class="swiper-slide"
+            style="background-image: url(./assets/swiper_004/nature-06.jpg)"
+          ></div>
+          <div
+            class="swiper-slide"
+            style="background-image: url(./assets/swiper_004/nature-07.jpg)"
+          ></div>
+          <div
+            class="swiper-slide"
+            style="background-image: url(./assets/swiper_004/nature-08.jpg)"
+          ></div>
+          <div
+            class="swiper-slide"
+            style="background-image: url(./assets/swiper_004/nature-09.jpg)"
+          ></div>
+          <div
+            class="swiper-slide"
+            style="background-image: url(./assets/swiper_004/nature-10.jpg)"
+          ></div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var mySwiper = new Swiper(".swiper-container", {
+          pagination: ".swiper-pagination",
+          effect: "coverflow",
+          grabCursor: true,
+          centeredSlides: true,
+          // slidesPerView: "auto",
+          slidesPerView: 3,
+          initialSlide: 5,
+          coverflow: {
+            rotate: 0,
+            stretch: 0,
+            depth: 300,
+            modifier: 1,
+            slideShadows: true,
+          },
+          //preventClicks: false,
+          //preventClicksPropagation: false,
+          slideToClickedSlide: true,
+          loop: true,
+          autoResize: false,
+        });
+      });
+    </script>
+  </body>
+</html>
