@@ -2,18 +2,23 @@
 
 A static gallery of [Swiper](https://swiperjs.com/) carousel and coverflow demos. Open `index.html` to browse the collection, search by id or title, and preview each example in desktop, tablet, or phone width.
 
-**Live site:** deploy this folder on Vercel. The Pixabay key stays in the Vercel environment as `PIXABAY_API_KEY`.
+Coverflow 009 searches photos through `/api/search`. The Pixabay key stays in the host environment as `PIXABAY_API_KEY` and is not written into the HTML.
 
 ## Run locally
 
 Serve the repo root so relative asset paths resolve:
 
 ```bash
-cd swiper-gallery
 python3 -m http.server 8080
 ```
 
-Then open [http://localhost:8080](http://localhost:8080). That server does not run `/api/search`. Use `vercel dev` when you need Coverflow 009 search.
+Then open [http://localhost:8080](http://localhost:8080). That server does not run `/api/search`.
+
+For Coverflow 009 search, copy `.env.example` to `.env`, set `PIXABAY_API_KEY`, and run:
+
+```bash
+vercel dev
+```
 
 ## Layout
 
@@ -26,10 +31,19 @@ Then open [http://localhost:8080](http://localhost:8080). That server does not r
 | `extra/` | Coverflow HTML demos that are not Swiper files |
 | `extra/experiments/` | Other HTML experiments (glow, shader, keyboard, scroll, steps) |
 | `api/search.js` | Vercel function. Calls Pixabay with `PIXABAY_API_KEY` and returns image URLs. |
-| `react-coverflow-main/` | React source for the coverflow in `extra/Coverflow_009.html`. Kept for editing. |
 
 Most demos load Swiper from a CDN. Credits and source links are listed on the hub next to each demo.
 
-## Vercel
+## Deploy on Vercel
 
-Deploy the repository root as a Vercel project. Static HTML is served as-is. Set `PIXABAY_API_KEY` in the project environment. Coverflow 009 calls `/api/search`. Copy `.env.example` to `.env` for local `vercel dev`.
+Import this repository and use these project settings:
+
+| Setting | Value |
+|---------|--------|
+| Framework preset | Other |
+| Root directory | Repository root |
+| Build command | Empty |
+| Output directory | Empty |
+| Environment variable | `PIXABAY_API_KEY` |
+
+Static HTML is served as-is. `api/search.js` runs as a serverless function. Do not choose Next.js, Vite, or Create React App. Those presets expect a `package.json` and a build, and this repo has neither.
