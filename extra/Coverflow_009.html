@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coverflow 009</title>
+  <style>
+    :root {
+      font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 24px;
+      color: rgba(255, 255, 255, 0.87);
+      background-color: #111111;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    .page {
+      width: 100vw;
+      height: 100vh;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin: 0.5rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    #search {
+      display: block;
+      width: 16rem;
+      margin: 0.5rem 0;
+      padding: 0.25rem 0.5rem;
+      border: 0;
+      border-radius: 0.5rem;
+      background: #fff;
+      color: #000;
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+      text-align: center;
+    }
+
+    #status {
+      min-height: 1.5rem;
+      margin: 0;
+      color: #aaa;
+      font-size: 0.875rem;
+    }
+
+    .container {
+      max-width: 100%;
+      width: 100%;
+      height: 600px;
+      perspective: 1000px;
+      perspective-origin: 50% 50%;
+      transform-style: preserve-3d;
+      position: relative;
+      margin: 1rem auto 0;
+      overflow: hidden;
+    }
+
+    .coverflow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      backface-visibility: visible;
+      transform: scale(1) translateZ(-400px);
+      transform-style: preserve-3d;
+      transform-origin: 50% 50%;
+      cursor: pointer;
+    }
+
+    .coverflow-item {
+      width: 500px;
+      height: 350px;
+      transform-origin: 50% 50%;
+      position: absolute;
+      backface-visibility: visible;
+      top: -175px;
+      left: -250px;
+      border: 2px solid #eee;
+      border-radius: 8px;
+      background-color: #111;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      transition: 1.25s all cubic-bezier(0.17, 0.75, 0.58, 0.95);
+      box-shadow: 0 10px 27px -1px rgba(0, 0, 0, 0.7);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Coverflow</h1>
+    <input id="search" type="text" placeholder="Search photos" autocomplete="off" />
+    <p id="status">Type to search Pixabay photos</p>
+    <div class="container">
+      <div class="coverflow" id="coverflow"></div>
+    </div>
+  </div>
+  <script>
+    const ITEM_DISTANCE = 200;
+    const ITEM_ANGLE = -45;
+    const CENTER_ITEM_POP = 500;
+    const CENTER_ITEM_DISTANCE = 80;
+
+    const coverflow = document.getElementById("coverflow");
+    const search = document.getElementById("search");
+    const status = document.getElementById("status");
+    let debounceId = 0;
+
+    function setTransform(el, xpos, zpos, yAngle, zIndex) {
+      el.style.transform = "translateX(" + xpos + "px) translateZ(" + zpos + "px) rotateY(" + yAngle + "deg)";
+      el.style.zIndex = String(zIndex);
+    }
+
+    function target(index) {
+      const items = coverflow.children;
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        const distance = Math.abs(i - index);
+        if (i === index) {
+          setTransform(item, 0, CENTER_ITEM_POP, 0, 1000);
+        } else if (i < index) {
+          setTransform(item, (i - index) * ITEM_DISTANCE - CENTER_ITEM_DISTANCE, 0, -ITEM_ANGLE, 1000 - distance);
+        } else {
+          setTransform(item, (i - index) * ITEM_DISTANCE + CENTER_ITEM_DISTANCE, 0, ITEM_ANGLE, 1000 - distance);
+        }
+      }
+    }
+
+    function render(urls) {
+      coverflow.replaceChildren();
+      urls.forEach(function (url, index) {
+        const item = document.createElement("div");
+        item.className = "coverflow-item";
+        item.style.backgroundImage = "url(" + url + ")";
+        item.addEventListener("click", function () {
+          target(index);
+        });
+        coverflow.appendChild(item);
+      });
+      if (urls.length) target(Math.floor(urls.length * 0.5));
+    }
+
+    search.addEventListener("input", function () {
+      clearTimeout(debounceId);
+      const query = search.value.trim();
+      if (!query) {
+        status.textContent = "Type to search Pixabay photos";
+        return;
+      }
+      debounceId = setTimeout(async function () {
+        status.textContent = "Searching…";
+        try {
+          const params = new URLSearchParams({ q: query });
+          const res = await fetch("/api/search?" + params.toString());
+          if (!res.ok) throw new Error("Search failed");
+          const data = await res.json();
+          const urls = Array.isArray(data.urls) ? data.urls : [];
+          render(urls);
+          status.textContent = urls.length ? urls.length + " photos" : "No photos found";
+        } catch (err) {
+          status.textContent = "Could not load photos";
+        }
+      }, 600);
+    });
+  </script>
+</body>
+</html>

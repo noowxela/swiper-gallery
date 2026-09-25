@@ -1,0 +1,318 @@
+<html>
+  <head>
+    <title>Coverflow</title>
+    <style>/* Variables */
+    aside {
+        background: #1f8dd6;
+        padding: 0.6em 1em;
+        color: #fff;
+    }
+
+    #content {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+
+
+    div.cover {
+    perspective: 500px;
+        -webkit-perspective: 500px;
+        transform-style: preserve-3d;
+        -webkit-transform-style: preserve-3d;
+    }
+
+    div.cover img {
+        width: 255px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 1;
+        border: none;
+        -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom,from(transparent), color-stop(70%, transparent), to(rgba(255,255,255,0.4)));
+    }
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+        
+    <div>velocity<span class="velocity"></span></div>
+    <div>target<span class="target"></span></div>
+    <div>centerpos<span class="centerpos"></span></div>
+    <div>centerpos<span class="centerpos2"></span></div>
+    <div>right(1)<span class="right1"></span></div>
+    <div>right(2)<span class="right2"></span></div>
+    <div>amplitute<span class="amplitude"></span></div>
+    <div>scroll <span class="scroll"></span></div>
+    <div>offset <span class="offset"></span></div>
+    <div>tween <span class="tween"></span></div>
+        <div>delta <span class="delta"></span></div>
+    <div>dir <span class="dir"></span></div>
+    <div>info<span class="info"></span></div>
+    <div>center<span class="center"></span></div>
+    <div>wrap <span class="wrap"></span></div>
+    <div class="pure-g cover" id="content">
+        <img id="0" src="http://lorempixel.com/200/200/abstract/text1">
+        <img id="1" src="http://lorempixel.com/200/200/abstract/text2">
+        <img id="2" src="http://lorempixel.com/200/200/abstract/text3">
+        <img id="3" src="http://lorempixel.com/200/200/abstract/text4">
+        <img id="4" src="http://lorempixel.com/200/200/abstract/text5">
+    
+        
+    </div>
+    
+    <script>
+        window.onload = function () {
+    'use strict';
+
+    var count, images, dim, offset, center, angle, dist, shift,
+        pressed, reference, amplitude, target, velocity, timeConstant,
+        xform, frame, timestamp, ticker;
+
+    function initialize() {
+        pressed = false;
+        timeConstant = 250; // ms
+        dim = 200;
+        offset = target = 0;
+        angle = 0;
+        dist = -150;
+        shift = 250;
+        count = 5;
+        images = [];
+        while (images.length < count) {
+            images.push(document.getElementById(images.length));
+        }
+    }
+
+    function setupEvents() {
+        var view = document.getElementById('content');
+        if (typeof window.ontouchstart !== 'undefined') {
+            view.addEventListener('touchstart', tap);
+            view.addEventListener('touchmove', drag);
+            view.addEventListener('touchend', release);
+        }
+        view.addEventListener('mousedown', tap);
+        view.addEventListener('mousemove', drag);
+        view.addEventListener('mouseup', release);
+        document.addEventListener('keydown', handleKey);
+    }
+
+    function xpos(e) {
+        // touch event
+        if (e.targetTouches && (e.targetTouches.length >= 1)) {
+            return e.targetTouches[0].clientX;
+        }
+
+        // mouse event
+        return e.clientX;
+    }
+
+    function wrap(x) {
+        return (x >= count) ? (x % count) : (x < 0) ? wrap(count + (x % count)) : x;
+    }
+
+    function scroll(x) {
+        var i, half, delta, dir, tween, el, alignment;
+
+        $('.scroll').text(x);
+        offset = (typeof x === 'number') ? x : offset;
+        $('.offset').text(offset);
+        center = Math.floor((offset + dim / 2) / dim);
+        $('.center').text(center);
+        delta = offset - center * dim;
+        dir = (delta < 0) ? 1 : -1;
+        tween = -dir * delta * 2 / dim;
+      
+        $('.dir').text(dir);
+        $('.tween').text(tween);
+        $('.delta').text(delta);
+
+        alignment = 'translateX(' + (innerWidth - dim) / 2 + 'px) ';
+        alignment += 'translateY(' + (innerHeight - dim) / 2 + 'px)';
+
+        // center
+        el = images[wrap(center)];
+        el.style[xform] = alignment +
+            ' translateX(' + (-delta / 2) + 'px)' +
+            ' translateX(' + (dir * shift * tween) + 'px)' +
+            ' translateZ(' + (dist * tween) + 'px)' +
+            ' rotateY(' + (dir * angle * tween) + 'deg)';
+        el.style.zIndex = 0;
+        el.style.opacity = 1;
+      
+      
+
+        half = count >> 1;
+        for (i = 1; i <= half; ++i) {
+            // right side
+          var w = wrap(center+i);
+          $('.wrap').text(w);
+            el = images[wrap(center + i)];
+            var rpos = (shift + (50*(i)) + (dim * i - delta) / 2);
+      
+              $('.right'+i).text(rpos);      
+          
+            el.style[xform] = alignment +
+                ' translateX(' + rpos + 'px)' +
+                ' translateZ(' + dist + 'px)' +
+                ' rotateY(' + angle + 'deg)';
+            el.style.zIndex = -i;
+            el.style.opacity = (i === half && delta < 0) ? 1 - tween : 1;
+
+            // left side
+            el = images[wrap(center - i)];
+            el.style[xform] = alignment +
+                ' translateX(' + (-shift + (-dim * i - delta) / 2) + 'px)' +
+                ' translateZ(' + dist + 'px)' +
+                ' rotateY(' + -angle + 'deg)';
+            el.style.zIndex = -i;
+            el.style.opacity = (i === half && delta > 0) ? 1 - tween : 1;
+        }
+
+        // center
+       el = images[wrap(center)];
+        el.style[xform] = alignment +
+            ' translateX(' + (-delta / 2) + 'px)' +
+            ' translateX(' + (dir * shift * tween) + 'px)' +
+            ' translateZ(' + (dist * tween) + 'px)' +
+            ' rotateY(' + (dir * angle * tween) + 'deg)';
+        el.style.zIndex = 0;
+        el.style.opacity = 1;
+    }
+
+    function track() {
+        var now, elapsed, delta, v;
+      
+      console.log('track');
+
+        now = Date.now();
+        elapsed = now - timestamp;
+        timestamp = now;
+        delta = offset - frame;
+        frame = offset;
+
+        v = 1000 * delta / (1 + elapsed);
+        velocity = 0.8 * v + 0.2 * velocity;
+    }
+
+    function autoScroll() {
+        var elapsed, delta;
+      $('.amplitude').text(amplitude);
+
+        if (amplitude) {
+            elapsed = Date.now() - timestamp;
+            delta = amplitude * Math.exp(-elapsed / timeConstant);
+          $('.info').text(delta);
+            if (delta > 4 || delta < -4) {
+                scroll(target - delta);
+                requestAnimationFrame(autoScroll);
+            } else {
+                scroll(target);
+            }
+        }
+    }
+
+    function tap(e) {
+        console.log('tap');
+        $('.targetfield').text(target);
+       
+        pressed = true;
+        reference = xpos(e);
+
+        velocity = amplitude = 0;
+        frame = offset;
+        timestamp = Date.now();
+        clearInterval(ticker);
+        ticker = setInterval(track, 100);
+        $('.velocity').text(velocity);
+
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    function drag(e) {
+      console.log('drag');
+        var x, delta;
+        if (pressed) {
+            x = xpos(e);
+            delta = reference - x;
+            if (delta > 2 || delta < -2) {
+                reference = x;
+                scroll(offset + delta);
+            }
+        }
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    function release(e) {
+        pressed = false;
+
+        clearInterval(ticker);
+        target = offset;
+      
+        $('.velocity').text(velocity);
+        $('.offset').text(offset);
+      
+        if (velocity > 10 || velocity < -10) {
+            amplitude = 0.9 * velocity;
+            target = offset + amplitude;
+        }
+        target = Math.round(target / dim) * dim;
+     
+        amplitude = target - offset;
+        timestamp = Date.now();
+      
+       $('.target').text('(release) target: '+target);
+        requestAnimationFrame(autoScroll);
+
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    function handleKey(e) {
+        if (!pressed && (target === offset)) {
+            // Space or PageDown or RightArrow or DownArrow
+            if ([32, 34, 39, 40].indexOf(e.which) >= 0) {
+                target = offset + dim;
+            }
+            // PageUp or LeftArrow or UpArrow
+            if ([33, 37, 38].indexOf(e.which) >= 0) {
+                target = offset - dim;
+            }
+            if (offset !== target) {
+                amplitude = target - offset;
+                timestamp = Date.now();
+                requestAnimationFrame(autoScroll);
+                return true;
+            }
+        }
+    }
+
+    xform = 'transform';
+    ['webkit', 'Moz', 'O', 'ms'].every(function (prefix) {
+        var e = prefix + 'Transform';
+        if (typeof document.body.style[e] !== 'undefined') {
+            xform = e;
+            return false;
+        }
+        return true;
+    });
+
+    window.onresize = scroll;
+
+    initialize();
+    setupEvents();
+    scroll(offset);
+};
+
+    </script>
+  </body>
+</html>

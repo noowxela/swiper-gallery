@@ -1,0 +1,238 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>pokemon Card Cover Flow Slider</title>
+    <style>/* Variables */
+    /* Picture from pokiapi: ../assets/swiper_033/249-6dfd6a38.svg */
+    @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap");
+
+    body {
+      padding: 0;
+      margin: 0;
+      background-color: #17141d;
+      color: white;
+      font-family: "DM Mono", monospace;
+    }
+
+    .container {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .swiper {
+      width: 100%;
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    .swiper .swiper-slide {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+      filter: grayscale(80%);
+      transition: all 0.8s cubic-bezier(0.25, 0.4, 0.45, 1.4);
+      border-radius: 15px;
+      background: linear-gradient(to right, #c31432, #240b36);
+      overflow: hidden;
+    }
+
+    .swiper .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .swiper .swiper-slide .info {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      z-index: 10;
+      padding: 15px;
+      box-shadow: inset 0 -120px 120px -120px black, inset 0 -120px 120px -120px black;
+    }
+
+    .swiper .swiper-slide .info h4 {
+      margin: 0;
+      padding-bottom: 10px;
+    }
+
+    .swiper .swiper-slide-active {
+      filter: none;
+    }
+
+    /* Custom navigation */
+    .swiper .swiper-pagination-bullet-active {
+      background-color: #c31432 !important;
+    }
+
+    .swiper .swiper-pagination-bullet {
+      background-color: grey;
+    }
+
+    .swiper .swiper-button-prev,
+    .swiper .swiper-button-next {
+      top: 50%;
+      width: 40px;
+      height: 40px;
+      background: white;
+      border: 3px solid #240b36;
+      border-radius: 50%;
+      color: #c31432;
+      font-weight: 700;
+      outline: 0;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .swiper .swiper-button-prev::after,
+    .swiper .swiper-button-next::after {
+      font-size: 18px;
+    }
+
+    .swiper .swiper-button-prev {
+      position: absolute;
+      left: -1px;
+    }
+
+    .swiper .swiper-button-next {
+      position: absolute;
+      left: 1px;
+    }
+
+    .swiper .swiper-button-prev,
+    .swiper-container-rtl .swiper-button-next {
+      left: 10px;
+      right: auto;
+    }
+
+    .swiper .swiper-button-next,
+    .swiper-container-rtl .swiper-button-prev {
+      right: 10px;
+      left: auto;
+    }
+
+    .swiper .swiper-button-prev.swiper-button-disabled,
+    .swiper .swiper-button-next.swiper-button-disabled {
+      opacity: 0;
+      cursor: auto;
+      pointer-events: none;
+    }
+
+
+    </style>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.js"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@4.1.6/dist/css/swiper.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@4.1.6/dist/js/swiper.min.js"></script> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/css/swiper.min.css" rel="stylesheet"/> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/js/swiper.min.js"></script> -->
+  </head>
+  <body>
+    
+    <div class="container">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide swiper-slide-active">
+            <img src="../assets/swiper_033/487-c68ad002.svg" alt="">
+            <div class="info">
+              <h4 class="name">
+                Giratina
+              </h4>
+              <span class="type">
+                Ghost, Dragon
+              </span>
+            </div>
+          </div>
+          <div class="swiper-slide swiper-slide-active">
+            <img src="../assets/swiper_033/384-7c4b842f.svg" alt="">
+            <div class="info">
+              <h4 class="name">
+                Rayquaza
+              </h4>
+              <span class="type">
+                Dragon, Flying
+              </span>
+            </div>
+          </div>
+          <div class="swiper-slide swiper-slide-active">
+            <img src="../assets/swiper_033/646-3f1bac1b.svg" alt="">
+            <div class="info">
+              <h4 class="name">
+                Kyrum
+              </h4>
+              <span class="type">
+                Dragon, Ice
+              </span>
+            </div>
+          </div>
+          <div class="swiper-slide swiper-slide-active">
+            <img src="../assets/swiper_033/249-6dfd6a38.svg" alt="">
+            <div class="info">
+              <h4 class="name">
+                Lugia
+              </h4>
+              <span class="type">
+                Psychic, Flying
+              </span>
+            </div>
+          </div>
+          <div class="swiper-slide swiper-slide-active">
+            <img src="../assets/swiper_033/383-b96a291e.svg" alt="">
+            <div class="info">
+              <h4 class="name">
+                Groudon
+              </h4>
+              <span class="type">
+                Ground
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
+
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const mySwiper = new Swiper('.swiper', {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            autoplay: {
+              delay: 3000
+            },
+            coverflowEffect: {
+              rotate: 0,
+              stretch: 0,
+              depth: 100,
+              modifier: 2,
+              slideShadows: true
+            },
+            spaceBetween: 50,
+            loop: true,
+            pagination: {
+              el: ".swiper-pagination",
+              clickable: true
+            },
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev"
+            }
+          });
+
+        });
+    </script>
+  </body>
+</html>

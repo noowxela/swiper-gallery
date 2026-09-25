@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <title>Swiper Example with Centered and Larger Active Slide </title>
+    <style>/* Variables */
+      body {
+        margin: 0;
+        padding: 0 24px;
+      }
+      section{
+        overflow: hidden;
+      }
+
+      .container {
+        max-width: 860px;
+        margin: 0 auto;
+        border: 1px dashed brown;
+        border-width: 0 1px 0 1px;
+        /* height: 100dvh; */
+        padding-top: 40dvh;
+      }
+
+      .swiper-container::part(container) {
+        overflow: visible;
+      }
+
+      .swiper-slide {
+        width: auto !important;
+        /* width: 150px; */
+        height: auto !important;
+      }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.js"></script> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/css/swiper.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/js/swiper.min.js"></script> -->
+  </head>
+  <body>
+    <!-- Swiper -->
+    <section>
+      <div class="container">
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <img src="../assets/swiper_024/150-e888f616.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="../assets/swiper_024/150-a273bf3b.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="../assets/swiper_024/150-99c3bf5d.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="../assets/swiper_024/150-ceedc0f0.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="../assets/swiper_024/150-9ad912a8.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="../assets/swiper_024/150-b6fbd0ee.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="../assets/swiper_024/150-2b8e6390.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="../assets/swiper_024/150-900f573e.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="../assets/swiper_024/150-590beec6.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="../assets/swiper_024/150-55ea8e21.jpg" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const swiper = new Swiper('.swiper-container', {
+            slidesPerView: 'auto',
+            spaceBetween: 40,
+            autoplay: {
+              delay: 5000,
+              disableOnInteraction: true
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            }
+          });
+        });
+    </script>
+  </body>
+</html>

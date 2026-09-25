@@ -1,0 +1,224 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Swiper slider coverflow advanced</title>
+    <style>/* Variables */
+    .slider_wrapper{
+        position: absolute;
+        left: -50%;
+        width: 200%;
+    }
+    .slider_nav{
+        position: relative;
+        z-index: 9;
+    }
+
+    .slider_wrapper .swiper-slide{
+        position: relative;
+        height: auto;
+        width: 400px;
+        box-shadow: 0 0 25px 0 #fff;
+        border-radius: 50px;
+    }
+    .slider_wrapper .swiper-slide img{
+        width: 100%;
+        border-radius: 35px;
+        transition: border-radius .45s;
+    }
+
+    .slider_wrapper .swiper-slide .description{
+        position: absolute;
+        top: 100%; left: 0;
+        height: 25%; width: 100%;
+        margin-top: -5px;
+        text-align: center;
+        font-family: Arial;
+        color: #fff;
+        background: #00713d;
+        box-sizing: border-box;
+        transition: all .45s;
+    }
+    .slider_wrapper .swiper-slide .description span{
+        position: relative;
+        display: block;
+        font-size: 20px;
+        top: calc(50% - 10px);
+    }
+
+        .slider_wrapper .swiper-wrapper > .swiper-slide{opacity: 0.2;}
+        .slider_wrapper .swiper-slide.swiper-slide-next,
+        .slider_wrapper .swiper-slide.swiper-slide-prev{opacity: 0.5;}
+        .slider_wrapper .swiper-slide.swiper-slide-active{opacity: 1;}
+
+    .slider_wrapper .swiper-wrapper > .swiper-slide .description{
+        top: calc(100% - 100px);
+        opacity: 0;
+    }
+    .slider_wrapper .swiper-slide.swiper-slide-active .description{
+        top: 100%;
+        opacity: 1;
+    }
+    .slider_wrapper .swiper-slide.swiper-slide-active img{border-radius: 35px 35px 0 0;}
+
+    .slider_navigation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+    }
+    .slider_navigation .slider_nav {
+        height: 100%;
+        width: 30px;
+        border: 0;
+        cursor: pointer;
+    }
+    .slider_navigation .slider_nav:hover {
+        color: #fff;
+        background: rgba(0,0,0,0.5);
+    }
+
+    @import url('https://fonts.googleapis.com/css?family=Roboto');
+    body {
+        align-items: center;
+        min-height: 250px;
+        padding-top: 20px;
+        font-weight: bold;
+        background: #f0f0f0;
+        overflow: hidden;
+    }
+    .infos {
+        position: relative;
+        left: 50%;
+        top: 350px;
+        width: 500px;
+        text-align: center;
+        font-family: 'Roboto', Arial;
+        font-size: 14px;
+        line-height: 16px;
+        margin-top: 50px;
+        color: #000;
+        transform: translateX(-50%);
+    }
+    .infos a {
+        color: #555;
+        text-decoration: none;
+    }
+    .infos a:hover {color: #999;}
+
+    </style>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha512-7rusk8kGPFynZWu26OKbTeI+QPoYchtxsmPeBqkHIEXJxeun4yJ4ISYe7C6sz9wdxeE1Gk3VxsIWgCZTc+vX3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet"/> -->
+    
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.js"></script> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.js"></script> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@4.1.6/dist/css/swiper.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@4.1.6/dist/js/swiper.min.js"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/css/swiper.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/js/swiper.min.js"></script>
+  </head>
+  <body>
+    <!-- Slider main container -->
+    <div class="slider_wrapper">
+        <div class="swiper-wrapper">
+            <a href="http://www.google.fr/" class='swiper-slide'>
+            <img src="../assets/swiper_040/200-154e558f.jpg" alt="" />
+            <div class="description"><span>test</span></div>
+            </a>
+            <a href="#" class='swiper-slide'>
+            <img src="../assets/swiper_040/200-154e558f.jpg" alt="" />
+            <div class="description"><span>test</span></div>
+            </a>
+            <a href="#" class='swiper-slide'>
+            <img src="../assets/swiper_040/200-154e558f.jpg" alt="" />
+            <div class="description"><span>test</span></div>
+            </a>
+            <a href="#" class='swiper-slide'>
+            <img src="../assets/swiper_040/200-154e558f.jpg" alt="" />
+            <div class="description"><span>test</span></div>
+            </a>
+            <a href="#" class='swiper-slide'>
+            <img src="../assets/swiper_040/200-154e558f.jpg" alt="" />
+            <div class="description"><span>test</span></div>
+            </a>
+            <a href="#" class='swiper-slide'>
+            <img src="../assets/swiper_040/200-154e558f.jpg" alt="" />
+            <div class="description"><span>test</span></div>
+            </a>
+            <a href="#" class='swiper-slide'>
+            <img src="../assets/swiper_040/200-154e558f.jpg" alt="" />
+            <div class="description"><span>test</span></div>
+            </a>
+            <a href="#" class='swiper-slide'>
+            <img src="../assets/swiper_040/200-154e558f.jpg" alt="" />
+            <div class="description"><span>test</span></div>
+            </a>
+            <a href="#" class='swiper-slide'>
+            <img src="../assets/swiper_040/200-154e558f.jpg" alt="" />
+            <div class="description"><span>test</span></div>
+            </a>
+        </div>
+    </div>
+    <div class="slider_navigation">
+        <button class="slider_nav prev"><</button>
+        <button class="slider_nav next">></button>
+    </div>
+    
+        
+        
+        
+        
+        
+        
+        
+<div class="infos">
+	<p>Created by <a href="https://www.webevasion.net" target='_blank'>Webévasion</a></p>
+</div>
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const swiper = new Swiper('.slider_wrapper', {
+                prevButton: '.slider_nav.prev',
+                nextButton: '.slider_nav.next',
+                slidesPerView: 9,
+                centeredSlides: true,
+                effect: 'coverflow',
+                slidesOffsetBefore: 0,
+                speed: 800,
+                coverflow: {
+                rotate: 0,
+                stretch: -10,
+                depth: 100,
+                modifier: 3,
+                slideShadows : false
+                },
+                breakpoints: {
+                320:{slidesPerView: 3},
+                640:{slidesPerView: 5},
+                1024:{slidesPerView: 7}
+                },
+                simulateTouch: true
+            });
+
+            var nb_slides = swiper.params.slidesPerView;
+            swiper.slideTo(Math.floor(nb_slides / 2));
+            
+            $('.swiper-wrapper a').on('click', function(e){
+                e.preventDefault();
+                console.log($(this).index());
+                swiper.slideTo($(this).index());
+                return false;
+            });
+        });
+    </script>
+  </body>
+</html>

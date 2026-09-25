@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>Instagram Avatar Story Gradient</title>
+    <style>/* Variables */
+    :root {
+      --size-avatar: 250px;  
+      --size-border: 10px;
+    }
+    .avatar {
+      align-items: center;
+      background-image: linear-gradient(45deg, #ffa95f 5%, #f99c4a 15%, #f47838 30%, #e75157 45%, #d92d7a 70%, #cc2a92 80%, #c32e92 95%);
+      box-sizing: border-box;
+      display: flex;
+      height: var(--size-avatar);
+      justify-content: center;
+      overflow: hidden;
+      padding: var(--size-border);
+      width: var(--size-avatar);
+    }
+    .avatar, .avatar > img {
+      border: var(--size-border) solid var(--color-background, white);
+      border-radius: 50%;
+    }
+    .avatar > img {
+      border-width: calc(0.5 * var(--size-border));
+      height: auto;
+      margin: 0;
+      transform: scale(1.1);
+      transition: transform 0.6s ease-in-out;
+      width: 100%;
+    }
+    .avatar.has-story img {
+      transform: scale(1);
+    }
+    body {
+      background-color: var(--color-background, white);
+      display: grid;
+      height: 100vh;
+    }
+    body .avatar {
+      margin: auto;
+    }
+    
+      
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <!--- This may need to change --->
+    <a class="avatar has-story" href="https://www.instagram.com/jasonjgardner/">
+      <img src="https://s.cdpn.io/profiles/user/34318/512.jpg" alt="Jason Gardner user avatar">
+    </a>
+    
+    <script>
+        window.onload = function () {
+          document.querySelector('.avatar').onclick = function() {
+            this.classList.toggle('has-story');
+          };
+        };
+
+    </script>
+  </body>
+</html>

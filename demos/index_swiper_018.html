@@ -1,0 +1,169 @@
+<html>
+  <head>
+    <title>Team Card Slider/Swiper </title>
+    <style>/* Variables */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap');
+
+        body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Roboto', sans-serif;
+        background: #eeeeee;
+        }
+
+        .swiper {
+        width: 400px;
+        height: 420px;
+        }
+
+        .swiper-cards .swiper-slide{
+            overflow:visible !important;
+        }
+        
+        .swiper-slide-shadow {
+            border-radius: 18px;
+        }
+
+        .swiper-slide {
+        background: #fff;
+        border-radius: 18px;
+        font-size: 22px;
+        font-weight: bold;
+        color: #000;
+        position: relative;
+        z-index: 1;
+        }
+
+        .swiper-slide.swiper-slide-active {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .swiper-slide .img {
+        width: 150px;
+        height: 150px;
+        border: 5px solid #fdfdfd;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 3;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        }
+
+        .swiper-slide .name {
+        padding-top: 100px;
+        text-align: center;
+        font-weight: 500;
+        font-size: 26px;
+        }
+
+        .swiper-slide .title {
+        text-align: center;
+        font-size: 14px;
+        color: #DA80AE;
+        font-weight: 300;
+        }
+
+        .swiper-slide .desc {
+        color: #6E6E6E;
+        text-align: center;
+        font-size: 20px;
+        padding: 10px 20px;
+        font-weight: 300;
+        }
+
+        .swiper-slide .link {
+        display: block;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 300;
+        text-decoration: none;
+        }
+
+        .swiper-slide .img-1 {
+        background-image: url('../assets/swiper_018/photo-1506794778202-cad84cf45f1d-c6d260ca.avif');
+        }
+
+        .swiper-slide .img-2 {
+        background-image: url('../assets/swiper_018/photo-1534528741775-53994a69daeb-2d73ee03.avif');
+        }
+
+        .swiper-slide .img-3 {
+        background-image: url('../assets/swiper_018/photo-1531427186611-ecfd6d936c79-24d98bc1.avif');
+        }
+
+        .swiper-slide .img-4 {
+        background-image: url('../assets/swiper_018/photo-1544005313-94ddf0286df2-67a94f23.avif');
+        }
+
+        .swiper-slide .img-5 {
+        background-image: url('../assets/swiper_018/photo-1552374196-c4e7ffc6e126-5b6d555f.avif');
+        }
+
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.js"></script> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/css/swiper.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/js/swiper.min.js"></script> -->
+  </head>
+  <body>
+    <!-- Swiper -->
+
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="img img-1"></div>
+          <div class="name">Abolfazl Najafi</div>
+          <div class="title">Full Stack Web Developer</div>
+          <div class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+          <a class="link" href="#">Read Full Story &#8594</a>
+        </div>
+        <div class="swiper-slide">
+          <div class="img img-2"></div>
+          <div class="name">Parastoo Bahmani</div>
+          <div class="title">Video Editor</div>
+          <div class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+          <a class="link" href="#">Read Full Story &#8594</a>
+        </div>
+        <div class="swiper-slide">
+          <div class="img img-3"></div>
+          <div class="name">Danial Fayazi</div>
+          <div class="title">Seo Specialist</div>
+          <div class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+          <a class="link" href="#">Read Full Story &#8594</a>
+        </div>
+        <div class="swiper-slide">
+          <div class="img img-4"></div>
+          <div class="name">Negar Taheri</div>
+          <div class="title">I/O Psychologist</div>
+          <div class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+          <a class="link" href="#">Read Full Story &#8594</a>
+        </div>
+        <div class="swiper-slide">
+          <div class="img img-5"></div>
+          <div class="name">Amir Shafie</div>
+          <div class="title">Real State Agent</div>
+          <div class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+          <a class="link" href="#">Read Full Story &#8594</a>
+        </div>
+      </div>
+    </div>
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var swiper = new Swiper(".mySwiper", {
+                effect: "cards",
+                grabCursor: true,
+            });
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,237 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Swiper coverflow</title>
+    <style>/* Variables */
+      *, *:before, *:after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .swiper-container {
+        width: 100%;
+        height: 28vw;
+        transition: opacity 0.6s ease;
+      }
+
+      .swiper-container.swiper-container-coverflow {
+        padding-top: 2%;
+      }
+
+      .swiper-container.loading {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .swiper-container:hover .swiper-button-prev,
+      .swiper-container:hover .swiper-button-next {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .swiper-wrapper {}
+
+      .swiper-slide {
+        background-position: center;
+        background-size: cover;
+      }
+
+      .swiper-slide .slide-inner {}
+
+      .swiper-slide .entity-img {
+        display: none;
+      }
+
+      .swiper-slide .content {
+        position: absolute;
+        top: 40%;
+        left: 0;
+        width: 50%;
+        padding-left: 5%;
+        color: #fff;
+      }
+
+      .swiper-slide .content .title {
+        font-size: 2.6em;
+        font-weight: bold;
+        margin-bottom: 30px;
+      }
+
+      .swiper-slide .content .caption {
+        display: block;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      [class^="swiper-button-"] {
+        width: 44px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .swiper-button-prev {
+        transform: translateX(50px);
+      }
+
+      .swiper-button-next {
+        transform: translateX(-50px);
+      }
+
+      .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
+        margin: 0 9px;
+        position: relative;
+        width: 12px;
+        height: 12px;
+        background-color: #fff;
+        opacity: 0.4;
+        transition: all 0.3s ease;
+      }
+
+      .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 18px;
+        height: 18px;
+        transform: translate(-50%, -50%);
+        border: 0 solid #fff;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+
+      .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet:hover,
+      .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet.swiper-pagination-bullet-active {
+        opacity: 1;
+      }
+
+      .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet.swiper-pagination-bullet-active::before {
+        border-width: 1px;
+      }
+
+      /* Mediaqueries */
+      @media(max-width: 1180px) {
+        .swiper-slide .content .title {
+          font-size: 25px;
+        }
+        .swiper-slide .content .caption {
+          font-size: 12px;
+        }
+      }
+
+      @media(max-width: 1023px) {
+        .swiper-container {
+          height: 40vw;
+        }
+        
+        .swiper-container.swiper-container-coverflow {
+          padding-top: 0;
+        }
+      }
+
+    </style>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.js"></script> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.js"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/swiper@4.1.6/dist/css/swiper.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@4.1.6/dist/js/swiper.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/css/swiper.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/js/swiper.min.js"></script> -->
+  </head>
+  <body>
+    <!-- Slider main container -->
+    <section class="swiper-container loading">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" style="background-image:url(../assets/swiper_030/photo-1483985988355-763728e1935b-85535e25.jpg)">
+          <img src="../assets/swiper_030/photo-1483985988355-763728e1935b-85535e25.jpg" class="entity-img" />
+          <div class="content">
+            <p class="title" data-swiper-parallax="-30%" data-swiper-parallax-scale=".7">Shaun Matthews</p>
+            <span class="caption" data-swiper-parallax="-20%">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span>
+          </div>
+        </div>
+        <div class="swiper-slide" style="background-image:url(../assets/swiper_030/photo-1500643752441-4dc90cda350a-43dc69fc.jpg)">
+          <img src="../assets/swiper_030/photo-1500643752441-4dc90cda350a-43dc69fc.jpg" class="entity-img" />
+          <div class="content">
+            <p class="title" data-swiper-parallax="-30%" data-swiper-parallax-scale=".7">Alexis Berry</p>
+            <span class="caption" data-swiper-parallax="-20%">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span>
+          </div>
+        </div>
+        <div class="swiper-slide" style="background-image:url(../assets/swiper_030/photo-1465408953385-7c4627c29435-15969817.jpg)">
+          <img src="../assets/swiper_030/photo-1465408953385-7c4627c29435-15969817.jpg" class="entity-img" />
+          <div class="content">
+            <p class="title" data-swiper-parallax="-30%" data-swiper-parallax-scale=".7">Billie	Pierce</p>
+            <span class="caption" data-swiper-parallax="-20%">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span>
+          </div>
+        </div>
+        <div class="swiper-slide" style="background-image:url(../assets/swiper_030/photo-1538329972958-465d6d2144ed-6d965d82.jpg)">
+          <img src="../assets/swiper_030/photo-1538329972958-465d6d2144ed-6d965d82.jpg" class="entity-img" />
+          <div class="content">
+            <p class="title" data-swiper-parallax="-30%" data-swiper-parallax-scale=".7">Trevor	Copeland</p>
+            <span class="caption" data-swiper-parallax="-20%">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span>
+          </div>
+        </div>
+        <div class="swiper-slide" style="background-image:url(../assets/swiper_030/photo-1583292650898-7d22cd27ca6f-cbb5ed22.jpg)">
+          <img src="../assets/swiper_030/photo-1583292650898-7d22cd27ca6f-cbb5ed22.jpg" class="entity-img" />
+          <div class="content">
+            <p class="title" data-swiper-parallax="-30%" data-swiper-parallax-scale=".7">Bernadette	Newman</p>
+            <span class="caption" data-swiper-parallax="-20%">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- If we need pagination -->
+      <div class="swiper-pagination"></div>
+      <!-- If we need navigation buttons -->
+      <div class="swiper-button-prev swiper-button-white"></div>
+      <div class="swiper-button-next swiper-button-white"></div>
+    </section>
+    
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const swiper = new Swiper('.swiper-container', {
+            loop: true,
+            speed:800,
+            slidesPerView: 2, // or 'auto'
+            // spaceBetween: 10,
+            centeredSlides : true,
+            effect: 'coverflow', // 'cube', 'fade', 'coverflow',
+            coverflowEffect: {
+              rotate: 50, // Slide rotate in degrees
+              stretch: 0, // Stretch space between slides (in px)
+              depth: 100, // Depth offset in px (slides translate in Z axis)
+              modifier: 1, // Effect multipler
+              slideShadows : true, // Enables slides shadows
+            },
+            grabCursor: true,
+            parallax: true,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+              1023: {
+                slidesPerView: 1,
+                spaceBetween: 0
+              }
+            },
+            // Events
+            on: {
+              imagesReady: function(){
+                this.el.classList.remove('loading');
+              }
+            }
+          });
+          
+        });
+    </script>
+  </body>
+</html>

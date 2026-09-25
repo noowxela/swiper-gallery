@@ -1,0 +1,631 @@
+<html>
+  <head>
+    <title>Coverflow Example (SCSS + light vanilla JS)</title>
+    <style>/* Variables */
+      body {
+        background: #081014;
+      }
+      /* easeOutCubic */
+      .coverflow {
+        position: relative;
+        height: 300px;
+        padding: 3rem;
+        overflow: hidden;
+        perspective: 1000px;
+      }
+      .coverflow__image {
+        user-select: none;
+        width: 400px;
+        height: 300px;
+        transition: all 350ms cubic-bezier(0.215, 0.61, 0.355, 1);
+      }
+      .coverflow__image[data-coverflow-index] {
+        position: absolute;
+        left: 50%;
+        transform-origin: 50% 50%;
+      }
+      .coverflow__image[data-coverflow-index]:before {
+        content: " ";
+        z-index: 1;
+        position: absolute;
+        top: 300px;
+        width: 100%;
+        height: 10%;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+      }
+      .coverflow[data-coverflow-position="1"] .coverflow__image[data-coverflow-index="1"] {
+        z-index: 10;
+        transform: translateX(-200px);
+        box-shadow: 0 1px 25px 10px rgba(0, 0, 0, 0.6);
+      }
+      .coverflow[data-coverflow-position="1"] .coverflow__image[data-coverflow-index="2"] {
+        z-index: 9;
+        transform: translateX(10px) scale(0.65) rotateY(-45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="1"] .coverflow__image[data-coverflow-index="3"] {
+        z-index: 8;
+        transform: translateX(100px) scale(0.5) rotateY(-45deg);
+        opacity: 0.3333333333;
+      }
+      .coverflow[data-coverflow-position="1"] .coverflow__image[data-coverflow-index="4"] {
+        z-index: 7;
+        transform: translateX(190px) scale(0.35) rotateY(-45deg);
+        opacity: 0.1666666667;
+      }
+      .coverflow[data-coverflow-position="1"] .coverflow__image[data-coverflow-index="5"] {
+        z-index: 6;
+        transform: translateX(280px) scale(0.2) rotateY(-45deg);
+        opacity: 0;
+      }
+      .coverflow[data-coverflow-position="1"] .coverflow__image[data-coverflow-index="6"] {
+        z-index: 5;
+        transform: translateX(370px) scale(0.05) rotateY(-45deg);
+        opacity: -0.1666666667;
+      }
+      .coverflow[data-coverflow-position="1"] .coverflow__image[data-coverflow-index="7"] {
+        z-index: 4;
+        transform: translateX(460px) scale(-0.1) rotateY(-45deg);
+        opacity: -0.3333333333;
+      }
+      .coverflow[data-coverflow-position="1"] .coverflow__image[data-coverflow-index="8"] {
+        z-index: 3;
+        transform: translateX(550px) scale(-0.25) rotateY(-45deg);
+        opacity: -0.5;
+      }
+      .coverflow[data-coverflow-position="1"] .coverflow__image[data-coverflow-index="9"] {
+        z-index: 2;
+        transform: translateX(640px) scale(-0.4) rotateY(-45deg);
+        opacity: -0.6666666667;
+      }
+      .coverflow[data-coverflow-position="1"] .coverflow__image[data-coverflow-index="10"] {
+        z-index: 1;
+        transform: translateX(730px) scale(-0.55) rotateY(-45deg);
+        opacity: -0.8333333333;
+      }
+      .coverflow[data-coverflow-position="2"] .coverflow__image[data-coverflow-index="1"] {
+        z-index: 9;
+        transform: translateX(-410px) scale(0.65) rotateY(45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="2"] .coverflow__image[data-coverflow-index="2"] {
+        z-index: 10;
+        transform: translateX(-200px);
+        box-shadow: 0 1px 25px 10px rgba(0, 0, 0, 0.6);
+      }
+      .coverflow[data-coverflow-position="2"] .coverflow__image[data-coverflow-index="3"] {
+        z-index: 9;
+        transform: translateX(10px) scale(0.65) rotateY(-45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="2"] .coverflow__image[data-coverflow-index="4"] {
+        z-index: 8;
+        transform: translateX(100px) scale(0.5) rotateY(-45deg);
+        opacity: 0.3333333333;
+      }
+      .coverflow[data-coverflow-position="2"] .coverflow__image[data-coverflow-index="5"] {
+        z-index: 7;
+        transform: translateX(190px) scale(0.35) rotateY(-45deg);
+        opacity: 0.1666666667;
+      }
+      .coverflow[data-coverflow-position="2"] .coverflow__image[data-coverflow-index="6"] {
+        z-index: 6;
+        transform: translateX(280px) scale(0.2) rotateY(-45deg);
+        opacity: 0;
+      }
+      .coverflow[data-coverflow-position="2"] .coverflow__image[data-coverflow-index="7"] {
+        z-index: 5;
+        transform: translateX(370px) scale(0.05) rotateY(-45deg);
+        opacity: -0.1666666667;
+      }
+      .coverflow[data-coverflow-position="2"] .coverflow__image[data-coverflow-index="8"] {
+        z-index: 4;
+        transform: translateX(460px) scale(-0.1) rotateY(-45deg);
+        opacity: -0.3333333333;
+      }
+      .coverflow[data-coverflow-position="2"] .coverflow__image[data-coverflow-index="9"] {
+        z-index: 3;
+        transform: translateX(550px) scale(-0.25) rotateY(-45deg);
+        opacity: -0.5;
+      }
+      .coverflow[data-coverflow-position="2"] .coverflow__image[data-coverflow-index="10"] {
+        z-index: 2;
+        transform: translateX(640px) scale(-0.4) rotateY(-45deg);
+        opacity: -0.6666666667;
+      }
+      .coverflow[data-coverflow-position="3"] .coverflow__image[data-coverflow-index="1"] {
+        z-index: 8;
+        transform: translateX(-500px) scale(0.5) rotateY(45deg);
+        opacity: 0.3333333333;
+      }
+      .coverflow[data-coverflow-position="3"] .coverflow__image[data-coverflow-index="2"] {
+        z-index: 9;
+        transform: translateX(-410px) scale(0.65) rotateY(45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="3"] .coverflow__image[data-coverflow-index="3"] {
+        z-index: 10;
+        transform: translateX(-200px);
+        box-shadow: 0 1px 25px 10px rgba(0, 0, 0, 0.6);
+      }
+      .coverflow[data-coverflow-position="3"] .coverflow__image[data-coverflow-index="4"] {
+        z-index: 9;
+        transform: translateX(10px) scale(0.65) rotateY(-45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="3"] .coverflow__image[data-coverflow-index="5"] {
+        z-index: 8;
+        transform: translateX(100px) scale(0.5) rotateY(-45deg);
+        opacity: 0.3333333333;
+      }
+      .coverflow[data-coverflow-position="3"] .coverflow__image[data-coverflow-index="6"] {
+        z-index: 7;
+        transform: translateX(190px) scale(0.35) rotateY(-45deg);
+        opacity: 0.1666666667;
+      }
+      .coverflow[data-coverflow-position="3"] .coverflow__image[data-coverflow-index="7"] {
+        z-index: 6;
+        transform: translateX(280px) scale(0.2) rotateY(-45deg);
+        opacity: 0;
+      }
+      .coverflow[data-coverflow-position="3"] .coverflow__image[data-coverflow-index="8"] {
+        z-index: 5;
+        transform: translateX(370px) scale(0.05) rotateY(-45deg);
+        opacity: -0.1666666667;
+      }
+      .coverflow[data-coverflow-position="3"] .coverflow__image[data-coverflow-index="9"] {
+        z-index: 4;
+        transform: translateX(460px) scale(-0.1) rotateY(-45deg);
+        opacity: -0.3333333333;
+      }
+      .coverflow[data-coverflow-position="3"] .coverflow__image[data-coverflow-index="10"] {
+        z-index: 3;
+        transform: translateX(550px) scale(-0.25) rotateY(-45deg);
+        opacity: -0.5;
+      }
+      .coverflow[data-coverflow-position="4"] .coverflow__image[data-coverflow-index="1"] {
+        z-index: 7;
+        transform: translateX(-590px) scale(0.35) rotateY(45deg);
+        opacity: 0.1666666667;
+      }
+      .coverflow[data-coverflow-position="4"] .coverflow__image[data-coverflow-index="2"] {
+        z-index: 8;
+        transform: translateX(-500px) scale(0.5) rotateY(45deg);
+        opacity: 0.3333333333;
+      }
+      .coverflow[data-coverflow-position="4"] .coverflow__image[data-coverflow-index="3"] {
+        z-index: 9;
+        transform: translateX(-410px) scale(0.65) rotateY(45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="4"] .coverflow__image[data-coverflow-index="4"] {
+        z-index: 10;
+        transform: translateX(-200px);
+        box-shadow: 0 1px 25px 10px rgba(0, 0, 0, 0.6);
+      }
+      .coverflow[data-coverflow-position="4"] .coverflow__image[data-coverflow-index="5"] {
+        z-index: 9;
+        transform: translateX(10px) scale(0.65) rotateY(-45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="4"] .coverflow__image[data-coverflow-index="6"] {
+        z-index: 8;
+        transform: translateX(100px) scale(0.5) rotateY(-45deg);
+        opacity: 0.3333333333;
+      }
+      .coverflow[data-coverflow-position="4"] .coverflow__image[data-coverflow-index="7"] {
+        z-index: 7;
+        transform: translateX(190px) scale(0.35) rotateY(-45deg);
+        opacity: 0.1666666667;
+      }
+      .coverflow[data-coverflow-position="4"] .coverflow__image[data-coverflow-index="8"] {
+        z-index: 6;
+        transform: translateX(280px) scale(0.2) rotateY(-45deg);
+        opacity: 0;
+      }
+      .coverflow[data-coverflow-position="4"] .coverflow__image[data-coverflow-index="9"] {
+        z-index: 5;
+        transform: translateX(370px) scale(0.05) rotateY(-45deg);
+        opacity: -0.1666666667;
+      }
+      .coverflow[data-coverflow-position="4"] .coverflow__image[data-coverflow-index="10"] {
+        z-index: 4;
+        transform: translateX(460px) scale(-0.1) rotateY(-45deg);
+        opacity: -0.3333333333;
+      }
+      .coverflow[data-coverflow-position="5"] .coverflow__image[data-coverflow-index="1"] {
+        z-index: 6;
+        transform: translateX(-680px) scale(0.2) rotateY(45deg);
+        opacity: 0;
+      }
+      .coverflow[data-coverflow-position="5"] .coverflow__image[data-coverflow-index="2"] {
+        z-index: 7;
+        transform: translateX(-590px) scale(0.35) rotateY(45deg);
+        opacity: 0.1666666667;
+      }
+      .coverflow[data-coverflow-position="5"] .coverflow__image[data-coverflow-index="3"] {
+        z-index: 8;
+        transform: translateX(-500px) scale(0.5) rotateY(45deg);
+        opacity: 0.3333333333;
+      }
+      .coverflow[data-coverflow-position="5"] .coverflow__image[data-coverflow-index="4"] {
+        z-index: 9;
+        transform: translateX(-410px) scale(0.65) rotateY(45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="5"] .coverflow__image[data-coverflow-index="5"] {
+        z-index: 10;
+        transform: translateX(-200px);
+        box-shadow: 0 1px 25px 10px rgba(0, 0, 0, 0.6);
+      }
+      .coverflow[data-coverflow-position="5"] .coverflow__image[data-coverflow-index="6"] {
+        z-index: 9;
+        transform: translateX(10px) scale(0.65) rotateY(-45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="5"] .coverflow__image[data-coverflow-index="7"] {
+        z-index: 8;
+        transform: translateX(100px) scale(0.5) rotateY(-45deg);
+        opacity: 0.3333333333;
+      }
+      .coverflow[data-coverflow-position="5"] .coverflow__image[data-coverflow-index="8"] {
+        z-index: 7;
+        transform: translateX(190px) scale(0.35) rotateY(-45deg);
+        opacity: 0.1666666667;
+      }
+      .coverflow[data-coverflow-position="5"] .coverflow__image[data-coverflow-index="9"] {
+        z-index: 6;
+        transform: translateX(280px) scale(0.2) rotateY(-45deg);
+        opacity: 0;
+      }
+      .coverflow[data-coverflow-position="5"] .coverflow__image[data-coverflow-index="10"] {
+        z-index: 5;
+        transform: translateX(370px) scale(0.05) rotateY(-45deg);
+        opacity: -0.1666666667;
+      }
+      .coverflow[data-coverflow-position="6"] .coverflow__image[data-coverflow-index="1"] {
+        z-index: 5;
+        transform: translateX(-770px) scale(0.05) rotateY(45deg);
+        opacity: -0.1666666667;
+      }
+      .coverflow[data-coverflow-position="6"] .coverflow__image[data-coverflow-index="2"] {
+        z-index: 6;
+        transform: translateX(-680px) scale(0.2) rotateY(45deg);
+        opacity: 0;
+      }
+      .coverflow[data-coverflow-position="6"] .coverflow__image[data-coverflow-index="3"] {
+        z-index: 7;
+        transform: translateX(-590px) scale(0.35) rotateY(45deg);
+        opacity: 0.1666666667;
+      }
+      .coverflow[data-coverflow-position="6"] .coverflow__image[data-coverflow-index="4"] {
+        z-index: 8;
+        transform: translateX(-500px) scale(0.5) rotateY(45deg);
+        opacity: 0.3333333333;
+      }
+      .coverflow[data-coverflow-position="6"] .coverflow__image[data-coverflow-index="5"] {
+        z-index: 9;
+        transform: translateX(-410px) scale(0.65) rotateY(45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="6"] .coverflow__image[data-coverflow-index="6"] {
+        z-index: 10;
+        transform: translateX(-200px);
+        box-shadow: 0 1px 25px 10px rgba(0, 0, 0, 0.6);
+      }
+      .coverflow[data-coverflow-position="6"] .coverflow__image[data-coverflow-index="7"] {
+        z-index: 9;
+        transform: translateX(10px) scale(0.65) rotateY(-45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="6"] .coverflow__image[data-coverflow-index="8"] {
+        z-index: 8;
+        transform: translateX(100px) scale(0.5) rotateY(-45deg);
+        opacity: 0.3333333333;
+      }
+      .coverflow[data-coverflow-position="6"] .coverflow__image[data-coverflow-index="9"] {
+        z-index: 7;
+        transform: translateX(190px) scale(0.35) rotateY(-45deg);
+        opacity: 0.1666666667;
+      }
+      .coverflow[data-coverflow-position="6"] .coverflow__image[data-coverflow-index="10"] {
+        z-index: 6;
+        transform: translateX(280px) scale(0.2) rotateY(-45deg);
+        opacity: 0;
+      }
+      .coverflow[data-coverflow-position="7"] .coverflow__image[data-coverflow-index="1"] {
+        z-index: 4;
+        transform: translateX(-860px) scale(-0.1) rotateY(45deg);
+        opacity: -0.3333333333;
+      }
+      .coverflow[data-coverflow-position="7"] .coverflow__image[data-coverflow-index="2"] {
+        z-index: 5;
+        transform: translateX(-770px) scale(0.05) rotateY(45deg);
+        opacity: -0.1666666667;
+      }
+      .coverflow[data-coverflow-position="7"] .coverflow__image[data-coverflow-index="3"] {
+        z-index: 6;
+        transform: translateX(-680px) scale(0.2) rotateY(45deg);
+        opacity: 0;
+      }
+      .coverflow[data-coverflow-position="7"] .coverflow__image[data-coverflow-index="4"] {
+        z-index: 7;
+        transform: translateX(-590px) scale(0.35) rotateY(45deg);
+        opacity: 0.1666666667;
+      }
+      .coverflow[data-coverflow-position="7"] .coverflow__image[data-coverflow-index="5"] {
+        z-index: 8;
+        transform: translateX(-500px) scale(0.5) rotateY(45deg);
+        opacity: 0.3333333333;
+      }
+      .coverflow[data-coverflow-position="7"] .coverflow__image[data-coverflow-index="6"] {
+        z-index: 9;
+        transform: translateX(-410px) scale(0.65) rotateY(45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="7"] .coverflow__image[data-coverflow-index="7"] {
+        z-index: 10;
+        transform: translateX(-200px);
+        box-shadow: 0 1px 25px 10px rgba(0, 0, 0, 0.6);
+      }
+      .coverflow[data-coverflow-position="7"] .coverflow__image[data-coverflow-index="8"] {
+        z-index: 9;
+        transform: translateX(10px) scale(0.65) rotateY(-45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="7"] .coverflow__image[data-coverflow-index="9"] {
+        z-index: 8;
+        transform: translateX(100px) scale(0.5) rotateY(-45deg);
+        opacity: 0.3333333333;
+      }
+      .coverflow[data-coverflow-position="7"] .coverflow__image[data-coverflow-index="10"] {
+        z-index: 7;
+        transform: translateX(190px) scale(0.35) rotateY(-45deg);
+        opacity: 0.1666666667;
+      }
+      .coverflow[data-coverflow-position="8"] .coverflow__image[data-coverflow-index="1"] {
+        z-index: 3;
+        transform: translateX(-950px) scale(-0.25) rotateY(45deg);
+        opacity: -0.5;
+      }
+      .coverflow[data-coverflow-position="8"] .coverflow__image[data-coverflow-index="2"] {
+        z-index: 4;
+        transform: translateX(-860px) scale(-0.1) rotateY(45deg);
+        opacity: -0.3333333333;
+      }
+      .coverflow[data-coverflow-position="8"] .coverflow__image[data-coverflow-index="3"] {
+        z-index: 5;
+        transform: translateX(-770px) scale(0.05) rotateY(45deg);
+        opacity: -0.1666666667;
+      }
+      .coverflow[data-coverflow-position="8"] .coverflow__image[data-coverflow-index="4"] {
+        z-index: 6;
+        transform: translateX(-680px) scale(0.2) rotateY(45deg);
+        opacity: 0;
+      }
+      .coverflow[data-coverflow-position="8"] .coverflow__image[data-coverflow-index="5"] {
+        z-index: 7;
+        transform: translateX(-590px) scale(0.35) rotateY(45deg);
+        opacity: 0.1666666667;
+      }
+      .coverflow[data-coverflow-position="8"] .coverflow__image[data-coverflow-index="6"] {
+        z-index: 8;
+        transform: translateX(-500px) scale(0.5) rotateY(45deg);
+        opacity: 0.3333333333;
+      }
+      .coverflow[data-coverflow-position="8"] .coverflow__image[data-coverflow-index="7"] {
+        z-index: 9;
+        transform: translateX(-410px) scale(0.65) rotateY(45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="8"] .coverflow__image[data-coverflow-index="8"] {
+        z-index: 10;
+        transform: translateX(-200px);
+        box-shadow: 0 1px 25px 10px rgba(0, 0, 0, 0.6);
+      }
+      .coverflow[data-coverflow-position="8"] .coverflow__image[data-coverflow-index="9"] {
+        z-index: 9;
+        transform: translateX(10px) scale(0.65) rotateY(-45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="8"] .coverflow__image[data-coverflow-index="10"] {
+        z-index: 8;
+        transform: translateX(100px) scale(0.5) rotateY(-45deg);
+        opacity: 0.3333333333;
+      }
+      .coverflow[data-coverflow-position="9"] .coverflow__image[data-coverflow-index="1"] {
+        z-index: 2;
+        transform: translateX(-1040px) scale(-0.4) rotateY(45deg);
+        opacity: -0.6666666667;
+      }
+      .coverflow[data-coverflow-position="9"] .coverflow__image[data-coverflow-index="2"] {
+        z-index: 3;
+        transform: translateX(-950px) scale(-0.25) rotateY(45deg);
+        opacity: -0.5;
+      }
+      .coverflow[data-coverflow-position="9"] .coverflow__image[data-coverflow-index="3"] {
+        z-index: 4;
+        transform: translateX(-860px) scale(-0.1) rotateY(45deg);
+        opacity: -0.3333333333;
+      }
+      .coverflow[data-coverflow-position="9"] .coverflow__image[data-coverflow-index="4"] {
+        z-index: 5;
+        transform: translateX(-770px) scale(0.05) rotateY(45deg);
+        opacity: -0.1666666667;
+      }
+      .coverflow[data-coverflow-position="9"] .coverflow__image[data-coverflow-index="5"] {
+        z-index: 6;
+        transform: translateX(-680px) scale(0.2) rotateY(45deg);
+        opacity: 0;
+      }
+      .coverflow[data-coverflow-position="9"] .coverflow__image[data-coverflow-index="6"] {
+        z-index: 7;
+        transform: translateX(-590px) scale(0.35) rotateY(45deg);
+        opacity: 0.1666666667;
+      }
+      .coverflow[data-coverflow-position="9"] .coverflow__image[data-coverflow-index="7"] {
+        z-index: 8;
+        transform: translateX(-500px) scale(0.5) rotateY(45deg);
+        opacity: 0.3333333333;
+      }
+      .coverflow[data-coverflow-position="9"] .coverflow__image[data-coverflow-index="8"] {
+        z-index: 9;
+        transform: translateX(-410px) scale(0.65) rotateY(45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="9"] .coverflow__image[data-coverflow-index="9"] {
+        z-index: 10;
+        transform: translateX(-200px);
+        box-shadow: 0 1px 25px 10px rgba(0, 0, 0, 0.6);
+      }
+      .coverflow[data-coverflow-position="9"] .coverflow__image[data-coverflow-index="10"] {
+        z-index: 9;
+        transform: translateX(10px) scale(0.65) rotateY(-45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="10"] .coverflow__image[data-coverflow-index="1"] {
+        z-index: 1;
+        transform: translateX(-1130px) scale(-0.55) rotateY(45deg);
+        opacity: -0.8333333333;
+      }
+      .coverflow[data-coverflow-position="10"] .coverflow__image[data-coverflow-index="2"] {
+        z-index: 2;
+        transform: translateX(-1040px) scale(-0.4) rotateY(45deg);
+        opacity: -0.6666666667;
+      }
+      .coverflow[data-coverflow-position="10"] .coverflow__image[data-coverflow-index="3"] {
+        z-index: 3;
+        transform: translateX(-950px) scale(-0.25) rotateY(45deg);
+        opacity: -0.5;
+      }
+      .coverflow[data-coverflow-position="10"] .coverflow__image[data-coverflow-index="4"] {
+        z-index: 4;
+        transform: translateX(-860px) scale(-0.1) rotateY(45deg);
+        opacity: -0.3333333333;
+      }
+      .coverflow[data-coverflow-position="10"] .coverflow__image[data-coverflow-index="5"] {
+        z-index: 5;
+        transform: translateX(-770px) scale(0.05) rotateY(45deg);
+        opacity: -0.1666666667;
+      }
+      .coverflow[data-coverflow-position="10"] .coverflow__image[data-coverflow-index="6"] {
+        z-index: 6;
+        transform: translateX(-680px) scale(0.2) rotateY(45deg);
+        opacity: 0;
+      }
+      .coverflow[data-coverflow-position="10"] .coverflow__image[data-coverflow-index="7"] {
+        z-index: 7;
+        transform: translateX(-590px) scale(0.35) rotateY(45deg);
+        opacity: 0.1666666667;
+      }
+      .coverflow[data-coverflow-position="10"] .coverflow__image[data-coverflow-index="8"] {
+        z-index: 8;
+        transform: translateX(-500px) scale(0.5) rotateY(45deg);
+        opacity: 0.3333333333;
+      }
+      .coverflow[data-coverflow-position="10"] .coverflow__image[data-coverflow-index="9"] {
+        z-index: 9;
+        transform: translateX(-410px) scale(0.65) rotateY(45deg);
+        opacity: 0.5;
+      }
+      .coverflow[data-coverflow-position="10"] .coverflow__image[data-coverflow-index="10"] {
+        z-index: 10;
+        transform: translateX(-200px);
+        box-shadow: 0 1px 25px 10px rgba(0, 0, 0, 0.6);
+      }
+      .prev-arrow, .next-arrow {
+        cursor: pointer;
+        z-index: 10;
+        position: absolute;
+        top: 50%;
+        padding: 1.5rem 2rem;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 3rem;
+        line-height: 3rem;
+        background: rgba(0, 0, 0, 0.00);
+        border-radius: 1rem;
+        transform-origin: 50% 50%;
+        transform: translateY(-50%);
+        transition: color 200ms, background 200ms;
+      }
+      .prev-arrow:hover, .next-arrow:hover, .prev-arrow:focus, .next-arrow:focus {
+        color: rgba(255, 255, 255, 0.9);
+        background: rgba(0, 0, 0, 0.5);
+      }
+      .prev-arrow {
+        left: 5%;
+      }
+      .prev-arrow:before {
+        content: "❮";
+      }
+      .next-arrow {
+        right: 5%;
+      }
+      .next-arrow:after {
+        content: "❯";
+      }
+      
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    
+    <div class="coverflow" data-coverflow-position="3">
+      <a class="prev-arrow"></a>
+      <img class="coverflow__image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/168886/bob-ross-1.jpg" data-coverflow-index="1">
+      <img class="coverflow__image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/168886/bob-ross-2.jpg" data-coverflow-index="2">
+      <img class="coverflow__image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/168886/bob-ross-3.jpg" data-coverflow-index="3">
+      <img class="coverflow__image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/168886/bob-ross-4.jpg" data-coverflow-index="4">
+      <img class="coverflow__image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/168886/bob-ross-5.jpg" data-coverflow-index="5">
+      <img class="coverflow__image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/168886/bob-ross-6.jpg" data-coverflow-index="6">
+      <img class="coverflow__image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/168886/bob-ross-7.jpg" data-coverflow-index="7">
+      <a class="next-arrow"></a>
+    </div>
+    
+    <script>
+        window.onload = function () {
+          //DOM elements
+          const coverflowContainer = document.querySelector('.coverflow');
+          const coverflowImages = [...document.querySelectorAll('.coverflow__image')];
+          const prevArrow = document.querySelector('.prev-arrow');
+          const nextArrow = document.querySelector('.next-arrow');
+
+          //set indicies and initial position
+          coverflowImages.forEach(function(coverflowImage, i) {
+            coverflowImage.dataset.coverflowIndex = i + 1;
+          });
+          let coverflowPosition = Math.floor(coverflowImages.length/2) + 1;
+          coverflowContainer.dataset.coverflowPosition = coverflowPosition;
+
+          //navigation functions
+          function viewPrevImage() {
+            coverflowPosition = Math.max(1, coverflowPosition - 1);
+            coverflowContainer.dataset.coverflowPosition = coverflowPosition;
+          }
+          function viewNextImage() {
+            coverflowPosition = Math.min(coverflowImages.length, coverflowPosition + 1);
+            coverflowContainer.dataset.coverflowPosition = coverflowPosition;
+          }
+          function jumpToImage(targetImage) {
+            coverflowPosition = Math.min(coverflowImages.length, Math.max(1, targetImage.dataset.coverflowIndex));
+            coverflowContainer.dataset.coverflowPosition = coverflowPosition;
+          }
+
+          //add event handlers
+          prevArrow.addEventListener('click', viewPrevImage);
+          nextArrow.addEventListener('click', viewNextImage);
+          coverflowImages.forEach(function(image) {
+            image.addEventListener('click', evt => jumpToImage(evt.target));
+          });
+          window.addEventListener('keyup', (evt) => {
+            if (evt.which ===  37) { //left arrow
+              viewPrevImage();
+            } else if (evt.which === 39) { //right arrow
+              viewNextImage();
+            }
+          });
+        };
+
+    </script>
+  </body>
+</html>

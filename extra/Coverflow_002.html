@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <title>Coverflow</title>
+    <style>/* Variables */
+    *, *:after, *:before {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        position: relative;
+        }
+
+        html, body {
+        height: 100%;
+        }
+
+        html {
+        background-color: #222;
+        
+        color: white;
+        font-size: 3em;
+        font-family: sans-serif;
+        }
+
+        .container {
+        height: 150px; 
+        
+        position: absolute;
+        top: 0; 
+        bottom: 0; 
+        left: 0; 
+        right: 0;
+        margin: auto;
+        
+        text-align: center;
+        
+        /* these are the same as everydaypanos' */
+        perspective: 900px;  
+        transform-style: preserve-3d;
+        }
+
+        .cover {
+        height: 150px;
+        width: 150px;
+        display: inline-block;
+        
+        margin: 0 -50px;  
+        transform:
+            rotateY(45deg);  
+        transition: .3s;
+        
+        border: 2px dashed #777;
+        background-color: rgba(0,0,0,.9);
+        
+        line-height: 150px;
+        
+        cursor: pointer;
+        }
+
+        .active {
+        background-color: rgba(100,0,0,1);
+        margin: 0;
+        transform: none;
+        }
+        .active ~ .cover {
+            transform:
+            rotateY(-45deg);
+            }
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+        
+    <div class='container'>
+        <div class='cover'>1</div>
+        <div class='cover'>2</div>
+        <div class='cover'>3</div>
+        <div class='cover active'>4</div>
+        <div class='cover'>5</div>
+        <div class='cover'>6</div>
+        <div class='cover'>7</div>
+        <div class='cover'>8</div>
+    </div>
+    
+    <script>
+        window.onload = function () {
+            'use strict';
+
+            
+            $('.cover').click(function() {
+                $('.active').removeClass('active');
+                $(this).addClass("active");
+            });
+        };
+
+    </script>
+  </body>
+</html>

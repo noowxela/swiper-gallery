@@ -1,0 +1,87 @@
+<html>
+  <head>
+    <title>Coverflow Animation</title>
+    <style>/* Variables */
+      body {
+        padding: 4em 0;
+        text-align: center;
+        background: #f1f1f1;
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        width: 200px;
+        height: 200px;
+        display: inline-block;
+        position: relative;
+      }
+
+      li {
+        position: absolute;
+        top: 0;
+        left: 0;
+        animation: coverflow 4s ease both infinite;
+      }
+
+      li:nth-child(2) {
+        animation-delay: 1s;
+      }
+
+      li:nth-child(3) {
+        animation-delay: 2s;
+      }
+
+      li:nth-child(4) {
+        animation-delay: 3s;
+      }
+
+      img {
+        border-radius: 50%;
+        border: 2px solid white;
+      }
+
+      @keyframes coverflow {
+        0%, 10% {
+          opacity: 1;
+          transform: none;
+          z-index: 10;
+        }
+        25%, 35% {
+          opacity: 0.2;
+          transform: translate3d(-170px, 0, 0) scale(0.6);
+        }
+        50% {
+          opacity: 0;
+          transform: translate3d(-190px, 0, 0) scale(0.6);
+        }
+        60% {
+          opacity: 0;
+          transform: translate3d(190px, 0, 0) scale(0.6);
+        }
+        75%, 85% {
+          opacity: 0.2;
+          transform: translate3d(170px, 0, 0) scale(0.6);
+        }
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    
+    <ul>
+      <li><img src="http://placehold.co/200x200"></li>
+      <li><img src="http://placehold.co/200x200"></li>
+      <li><img src="http://placehold.co/200x200"></li>
+      <li><img src="http://placehold.co/200x200"></li>
+    </ul>
+    
+    <script>
+        window.onload = function () {
+          
+        };
+
+    </script>
+  </body>
+</html>

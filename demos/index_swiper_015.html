@@ -1,0 +1,244 @@
+<html>
+  <head>
+    <title>Coverflow Effect - Swiper Js</title>
+    <style>/* Variables */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+        --dark: #070707;
+        --size-index: calc(1vw + 1vh);
+        --transition: .75s cubic-bezier(0.255, 0.670, 0.000, 1.010);
+    }
+    body, html {
+        font-family: 'Raleway', sans-serif;
+        width: 100%;
+        height: 100%;
+        background: var(--dark);
+        color: #fff;
+        overflow: hidden;
+        line-height: 1.7;
+        font-size: calc(var(--size-index) * .8);
+    }
+    .slider {
+        height: 100%;
+        transform: rotate(15deg);
+        overflow: visible !important;
+        top: 10vh;
+    }
+    .slider__wrapper {
+        transition: var(--transition) !important;
+        will-change: transform;
+    }
+    /*  About whill-change css property:
+    The will-change CSS property hints to browsers how an element is expected to change.
+    Browsers may set up optimizations before an element is actually changed.
+    These kinds of optimizations can increase the responsiveness of a
+    page by doing potentially expensive work before they are actually required.
+
+    https://developer.mozilla.org/en-US/docs/Web/CSS/will-change
+    */
+    .slider__img {
+        will-change: transform;
+        width: 300%;
+        position: absolute;
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        left: -100%;
+        transition: var(--transition) !important;
+    }
+    .slider__item {
+        max-height: 75vh;
+        overflow: hidden;
+        position: relative !important;
+        cursor: pointer;
+        transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .slider__item.opened {
+        z-index: 3;
+        /* transform: rotate(-15deg) scale(1.5) !important; */
+        transform: rotate(-15deg) scale(1.2) !important;
+        box-shadow: rgba(0,0,0,.75) 0 0 0 10000px;
+    }
+    .slider_bg {
+        z-index: 0 !important;
+        transform: rotate(-20deg) !important;
+        top: -90vh;
+        left: -10vh;
+        opacity: .2;
+        filter: blur(140px) saturate(9);
+    }
+    .slider_bg .slider__item {
+        max-height: 100vh;
+        cursor: default;
+    }
+    .description {
+        position: absolute;
+        font-size: calc(var(--size-index) * .8);
+        top: 20vh;
+        left: 8vw;
+        max-width: 24vw;
+        transition: opacity var(--transition), transform var(--transition);
+    }
+    .description p {
+        opacity: .9;
+        transition: transform var(--transition);
+        transition-duration: 3s;
+    }
+    .description.hidden {
+        opacity: 0;
+        transform: translateY(5vh);
+    }
+    .description.hidden p{
+        transform: translateY(2vh);
+    }
+    .logo {
+        font-size: calc(var(--size-index) * 3.6);
+        font-weight: 900;
+        background: linear-gradient(45deg, #f36100, #884985, #7c1212 );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+    }
+      
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.0/swiper-bundle.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.5/swiper-bundle.min.js"></script> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/css/swiper.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@3.4.2/dist/js/swiper.min.js"></script> -->
+  </head>
+  <body>
+    <div class="description">
+      <div class="logo">Red Sea</div>
+      <p>
+          Red Sea is a direct translation of the Greek Erythra Thalassa (Ερυθρὰ Θάλασσα). The sea itself was once referred
+          to as the Erythraean Sea by Europeans. As well as Mare Rubrum in Latin (alternatively Sinus Arabicus, literally
+          "Arabian Gulf"), the Romans called it Pontus Herculis (Sea of Hercules).
+      </p>
+    </div>
+    
+    <div class="swiper slider slider_main">
+        <div class="swiper-wrapper slider__wrapper">
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(../assets/swiper_015/1-bff3366f.jpg);"></div>
+            </div>
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="30%" style="background-image: url(../assets/swiper_015/2-7df4d453.jpg);"></div>
+            </div>
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(../assets/swiper_015/3-97426162.jpg);"></div>
+            </div>
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="30%" style="background-image: url(../assets/swiper_015/4-d456f239.jpg);"></div>
+            </div>
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(../assets/swiper_015/5-637229dc.jpg);"></div>
+            </div>
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="30%" style="background-image: url(../assets/swiper_015/6-dc466804.jpg);"></div>
+            </div>
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(../assets/swiper_015/7-4c89b493.jpg);"></div>
+            </div>
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="30%" style="background-image: url(../assets/swiper_015/8-ecb7dd79.jpg);"></div>
+            </div>
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(h../assets/swiper_015/9-14d1b11a.jpg);"></div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="swiper slider slider_bg">
+        <div class="swiper-wrapper slider__wrapper">
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(../assets/swiper_015/1-bff3366f.jpg);"></div>
+            </div>
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="30%" style="background-image: url(../assets/swiper_015/2-7df4d453.jpg);"></div>
+            </div>
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(../assets/swiper_015/3-97426162.jpg);"></div>
+            </div>
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="30%" style="background-image: url(../assets/swiper_015/4-d456f239.jpg);"></div>
+            </div>
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(../assets/swiper_015/5-637229dc.jpg);"></div>
+            </div>
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="30%" style="background-image: url(../assets/swiper_015/6-dc466804.jpg);"></div>
+            </div>
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(../assets/swiper_015/7-4c89b493.jpg);"></div>
+            </div>
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="30%" style="background-image: url(../assets/swiper_015/8-ecb7dd79.jpg);"></div>
+            </div>
+            <div class="swiper-slide slider__item">
+                <div class="slider__img" data-swiper-parallax="20%" style="background-image: url(../assets/swiper_015/9-14d1b11a.jpg);"></div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const sliderMain = new Swiper('.slider_main', {
+            freeMode: true,
+            centeredSlides: true,
+            mousewheel: true,
+            parallax: true,
+            breakpoints: {
+                0: {
+                    slidesPerView: 2.5,
+                    spaceBetween: 20
+                },
+                680: {
+                    slidesPerView: 3.5,
+                    spaceBetween: 60
+                }
+            }
+        })
+        //filtering this slider under mainSlider filter: blur(140px) saturate(9); transform: rotate(-20deg)
+        const sliderBg = new Swiper('.slider_bg', {
+            centeredSlides: true,
+            slidesPerView: 3.5,
+            parallax: true,
+            spaceBetween: 60,
+            allowTouchMove: false,
+        })
+
+        sliderMain.controller.control = sliderBg
+
+        const sliderItems = document.querySelectorAll('.slider__item')
+        const desc = document.querySelector('.description')
+
+        function removeClass(items,className) {
+            items.forEach(item => {
+                item.classList.remove(className)
+            })
+        }
+
+        sliderItems.forEach(item => {
+            item.addEventListener('click', e => {
+                if (!item.classList.contains('opened')) removeClass(sliderItems,'opened')
+                item.classList.toggle('opened')
+            })
+        })
+
+        sliderMain.on('slideChange', e => {
+            sliderMain.activeIndex > 0 ? desc.classList.add('hidden') : desc.classList.remove('hidden')
+        })
+
+      });
+    </script>
+  </body>
+</html>
