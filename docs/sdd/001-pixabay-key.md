@@ -3,7 +3,7 @@
 - **Repo:** `o000o_active/swiper`
 - **Status:** `implemented`
 - **Date:** 2026-09-25
-- **Related:** [000-architecture.md](000-architecture.md)
+- **Related:** [architecture.md](../architecture.md)
 
 ## 1. Context / current architecture
 
